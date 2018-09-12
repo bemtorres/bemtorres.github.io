@@ -29,6 +29,24 @@
 </head>
 
 <body class="">
+    <!-- Load Facebook SDK for JavaScript -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/es_ES/sdk/xfbml.customerchat.js#xfbml=1&version=v2.12&autoLogAppEvents=1';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- Your customer chat code -->
+<div class="fb-customerchat"
+  attribution=setup_tool
+  page_id="1677553832543067"
+  theme_color="#ffc300"
+  logged_in_greeting="Hola! Como te puedo ayudar?"
+  logged_out_greeting="Hola! Como te puedo ayudar?">
+</div>
     <div class="wrapper ">
         <div class="sidebar" data-color="orange">
             <!--
@@ -227,6 +245,7 @@
         </div>
     </div>
 </body>
+
 <script src="assets/js/core/jquery.min.js"></script>
 <script src="assets/js/core/popper.min.js"></script>
 <script src="assets/js/core/bootstrap.min.js"></script>
