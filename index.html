@@ -1,131 +1,404 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport">
+  <title>Bemtorres</title>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <link rel="stylesheet" href="dist/modules/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="dist/modules/ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="dist/modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
 
-    <title>PWA Mola!</title>
+  <link rel="stylesheet" href="dist/modules/summernote/summernote-lite.css">
+  <link rel="stylesheet" href="dist/css/demo.css">
+  <link rel="stylesheet" href="dist/css/style.css">
 
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+  <meta name="theme-color" content="#212529">
+  <link rel="manifest" href="manifest.json">
 
-    <!-- Custom fonts for this template -->
-    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+  <link rel="icon" type="image/ico" href="favicon.ico">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112444389-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-    <!-- Custom styles for this template -->
-    <link href="css/one-page-wonder.css" rel="stylesheet">
+    gtag('config', 'UA-112444389-2');
+  </script>
+  <link rel="stylesheet" href="dist/css/skins/darksidebar.css" id="skin-css">
+</head>
 
-    <meta name="theme-color" content="#ee0979">
-    <link rel="manifest" href="/manifest.json">
+<body>
+  <!-- Load Facebook SDK for JavaScript -->
+  <div id="fb-root"></div>
+  <script>(function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/es_ES/sdk/xfbml.customerchat.js#xfbml=1&version=v2.12&autoLogAppEvents=1';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
 
-  </head>
-
-  <body>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">PWA Mola!</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="#">Sign Up</a>
+  <!-- Your customer chat code -->
+  <div class="fb-customerchat" attribution=setup_tool page_id="1677553832543067" theme_color="#ffc300"
+    logged_in_greeting="Hola! ¿Como te puedo ayudar?" logged_out_greeting="Hola! ¿Como te puedo ayudar?">
+  </div>
+  <div id="app">
+    <div class="main-wrapper">
+      <div class="navbar-bg"></div>
+      <nav class="navbar navbar-expand-lg main-navbar">
+        <form class="form-inline mr-auto">
+          <ul class="navbar-nav mr-3">
+            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="ion ion-navicon-round"></i></a></li>
+            <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="ion ion-search"></i></a></li>
+          </ul>
+          <div class="search-element">
+            <input class="form-control" type="search" placeholder="Buscar" aria-label="Search">
+            <button class="btn" type="submit"><i class="ion ion-search"></i></button>
+          </div>
+        </form>
+        <ul class="navbar-nav navbar-right">
+          <!--
+          <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep"><i class="ion ion-ios-bell-outline"></i></a>
+            <div class="dropdown-menu dropdown-list dropdown-menu-right">
+              <div class="dropdown-header">Notifications
+                <div class="float-right">
+                  <a href="#">View All</a>
+                </div>
+              </div>
+              <div class="dropdown-list-content">
+                <a href="#" class="dropdown-item dropdown-item-unread">
+                  <img alt="image" src="dist/img/avatar/avatar-1.jpeg" class="rounded-circle dropdown-item-img">
+                  <div class="dropdown-item-desc">
+                    <b>Kusnaedi</b> has moved task <b>Fix bug header</b> to <b>Done</b>
+                    <div class="time">10 Hours Ago</div>
+                  </div>
+                </a>
+                <a href="#" class="dropdown-item dropdown-item-unread">
+                  <img alt="image" src="dist/img/avatar/avatar-2.jpeg" class="rounded-circle dropdown-item-img">
+                  <div class="dropdown-item-desc">
+                    <b>Ujang Maman</b> has moved task <b>Fix bug footer</b> to <b>Progress</b>
+                    <div class="time">12 Hours Ago</div>
+                  </div>
+                </a>
+                <a href="#" class="dropdown-item">
+                  <img alt="image" src="dist/img/avatar/avatar-3.jpeg" class="rounded-circle dropdown-item-img">
+                  <div class="dropdown-item-desc">
+                    <b>Agung Ardiansyah</b> has moved task <b>Fix bug sidebar</b> to <b>Done</b>
+                    <div class="time">12 Hours Ago</div>
+                  </div>
+                </a>
+                <a href="#" class="dropdown-item">
+                  <img alt="image" src="dist/img/avatar/avatar-4.jpeg" class="rounded-circle dropdown-item-img">
+                  <div class="dropdown-item-desc">
+                    <b>Ardian Rahardiansyah</b> has moved task <b>Fix bug navbar</b> to <b>Done</b>
+                    <div class="time">16 Hours Ago</div>
+                  </div>
+                </a>
+                <a href="#" class="dropdown-item">
+                  <img alt="image" src="dist/img/avatar/avatar-5.jpeg" class="rounded-circle dropdown-item-img">
+                  <div class="dropdown-item-desc">
+                    <b>Alfa Zulkarnain</b> has moved task <b>Add logo</b> to <b>Done</b>
+                    <div class="time">Yesterday</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </li> 
+        -->
+          <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg">
+              <i class="ion ion-android-person d-lg-none"></i>
+              <div class="d-sm-none d-lg-inline-block">Hola, Bienvenido</div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a href="#" class="dropdown-item has-icon">
+                <i class="ion ion-android-person"></i> Perfil
+              </a>
+              <a href="#" class="dropdown-item has-icon">
+                <i class="ion ion-log-out"></i> Salir
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <div class="main-sidebar">
+        <aside id="sidebar-wrapper">
+          <div class="sidebar-brand">
+            <a href="index.html">Bemtorres</a>
+          </div>
+          <div class="sidebar-user">
+            <div class="sidebar-user-picture">
+              <img alt="image" src="dist/img/avatar/avatar-1.jpg">
+            </div>
+            <div class="sidebar-user-details">
+              <div class="user-name">Benjamin Mora</div>
+              <div class="user-role">
+                Desarrollador
+              </div>
+            </div>
+          </div>
+          <ul class="sidebar-menu">
+            <li class="menu-header">Menú</li>
+            <li class="active">
+              <a href="index.html"><i class="ion ion-speedometer"></i><span>Cursos</span></a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Log In</a>
+
+            <li class="menu-header">Components</li>
+            <li>
+              <a href="#" class="has-dropdown"><i class="ion ion-flag"></i><span>Sitios relacionados</span></a>
+              <ul class="menu-dropdown">
+                <li><a href="https://www.cittsb.cl/"><i class="ion ion-ios-circle-outline"></i> cittsb.cl</a></li>
+                <li><a href="http://reporte.cittsb.cl"><i class="ion ion-ios-circle-outline"></i> Reporte Inasistencia</a></li>
+              </ul>
             </li>
           </ul>
-        </div>
+        </aside>
       </div>
-    </nav>
+      <div class="main-content">
+        <section class="section">
+          <h1 class="section-header">
+            <div>Bemtorres</div>
+          </h1>
+          <div class="row">
+            <div class="col-lg-3 col-md-6 col-12">
+              <div class="card card-sm-3">
+                <div class="card-icon bg-dark">
+                  <a href="https://github.com/bemtorres" class="text-white" target="_blink"><i class="fab fa-github"></i></a>
 
-    <header class="masthead text-center text-white">
-      <div class="masthead-content">
-        <div class="container">
-          <h1 class="masthead-heading mb-0">PWA Mola!</h1>
-          <h2 class="masthead-subheading mb-0">Will Rock Your Socks Off</h2>
-          <a href="#" class="btn btn-primary btn-xl rounded-pill mt-5">Click Me!</a>
-        </div>
-      </div>
-      <div class="bg-circle-1 bg-circle"></div>
-      <div class="bg-circle-2 bg-circle"></div>
-      <div class="bg-circle-3 bg-circle"></div>
-      <div class="bg-circle-4 bg-circle"></div>
-    </header>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>Github</h4>
+                  </div>
+                  <div class="card-body">
 
-    <section>
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-lg-6 order-lg-2">
-            <div class="p-5">
-              <img class="img-fluid rounded-circle" src="img/01.jpg" alt="">
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="col-lg-6 order-lg-1">
-            <div class="p-5">
-              <h2 class="display-4">For those about to rock...</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
+            <div class="col-lg-3 col-md-6 col-12">
+              <div class="card card-sm-3">
+                <div class="card-icon bg-success">
+                  <a title="Click para chatear" class="text-white" href="https://api.whatsapp.com/send?phone=56998299855&text=Hola%20gustaría%20saber%20preguntar"
+                    rel="noopener" target="_blink">
+                    <i class="fab fa-whatsapp"></i>
+                  </a>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>Escribe Rapido</h4>
+                  </div>
+                  <div class="card-body">
+                    <span class="">Hablamé</span>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
+            <div class="col-lg-3 col-md-6 col-12">
+              <div class="card card-sm-3">
+                <div class="card-icon bg-danger">
+                  <i class="ion ion-ios-paper-outline"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>Desarrollador</h4>
+                  </div>
+                  <div class="card-body">
+                    42
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-12">
+              <div class="card card-sm-3">
+                <div class="card-icon bg-warning">
+                  <i class="ion ion-paper-airplane"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>Edición</h4>
+                  </div>
+                  <div class="card-body">
+                    1,201
+                  </div>
+                </div>
+              </div>
+            </div>
 
-    <section>
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-lg-6">
-            <div class="p-5">
-              <img class="img-fluid rounded-circle" src="img/02.jpg" alt="">
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-12 col-12 col-sm-12">
+              <div class="card">
+                <div class="card-header">
+                  <div class="float-right">
+                    <div class="btn-group">
+                      <a href="#carousel-simple" data-tab="carousel" class="btn active">Simple</a>
+                      <a href="#carousel-caption" data-tab="carousel" class="btn">With Caption</a>
+                    </div>
+                  </div>
+                  <h4>Carousel</h4>
+                </div>
+                <div class="card-body">
+                  <div class="active" data-tab-group="carousel" id="carousel-simple">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                      <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                      </ol>
+                      <div class="carousel-inner">
+                        <div class="carousel-item active">
+                          <img class="d-block w-100" src="dist/img/news/img01.jpg" alt="First slide">
+                        </div>
+                        <div class="carousel-item">
+                          <img class="d-block w-100" src="dist/img/news/img07.jpg" alt="Second slide">
+                        </div>
+                        <div class="carousel-item">
+                          <img class="d-block w-100" src="dist/img/news/img08.jpg" alt="Third slide">
+                        </div>
+                      </div>
+                      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                      </a>
+                      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                      </a>
+                    </div>
+                  </div>
+                  <div data-tab-group="carousel" id="carousel-caption">
+                    <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+                      <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators2" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators2" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators2" data-slide-to="2"></li>
+                      </ol>
+                      <div class="carousel-inner">
+                        <div class="carousel-item active">
+                          <img class="d-block w-100" src="dist/img/news/img01.jpg" alt="First slide">
+                          <div class="carousel-caption d-none d-md-block">
+                            <h5>Heading</h5>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                              tempor incididunt ut labore et dolore magna aliqua.</p>
+                          </div>
+                        </div>
+                        <div class="carousel-item">
+                          <img class="d-block w-100" src="dist/img/news/img07.jpg" alt="Second slide">
+                          <div class="carousel-caption d-none d-md-block">
+                            <h5>Heading</h5>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                              tempor incididunt ut labore et dolore magna aliqua.</p>
+                          </div>
+                        </div>
+                        <div class="carousel-item">
+                          <img class="d-block w-100" src="dist/img/news/img08.jpg" alt="Third slide">
+                          <div class="carousel-caption d-none d-md-block">
+                            <h5>Heading</h5>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                              tempor incididunt ut labore et dolore magna aliqua.</p>
+                          </div>
+                        </div>
+                      </div>
+                      <a class="carousel-control-prev" href="#carouselExampleIndicators2" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                      </a>
+                      <a class="carousel-control-next" href="#carouselExampleIndicators2" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-12 col-sm-12">
+              <div class="card">
+                <div class="card-header">
+                  <h4>Accordion</h4>
+                </div>
+                <div class="card-body">
+                  <div id="accordion">
+                    <div class="accordion">
+                      <div class="accordion-header" data-toggle="collapse" data-target="#panel-body-1" aria-expanded="true">
+                        <h4>Panel 1</h4>
+                      </div>
+                      <div class="accordion-body collapse show" id="panel-body-1" data-parent="#accordion">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                      </div>
+                    </div>
+                    <div class="accordion">
+                      <div class="accordion-header" data-toggle="collapse" data-target="#panel-body-2">
+                        <h4>Panel 2</h4>
+                      </div>
+                      <div class="accordion-body collapse" id="panel-body-2" data-parent="#accordion">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                      </div>
+                    </div>
+                    <div class="accordion">
+                      <div class="accordion-header" data-toggle="collapse" data-target="#panel-body-3">
+                        <h4>Panel 3</h4>
+                      </div>
+                      <div class="accordion-body collapse" id="panel-body-3" data-parent="#accordion">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="col-lg-6">
-            <div class="p-5">
-              <h2 class="display-4">We salute you!</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <section>
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-lg-6 order-lg-2">
-            <div class="p-5">
-              <img class="img-fluid rounded-circle" src="img/03.jpg" alt="">
-            </div>
-          </div>
-          <div class="col-lg-6 order-lg-1">
-            <div class="p-5">
-              <h2 class="display-4">Let there be rock!</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
-            </div>
-          </div>
-        </div>
+        </section>
       </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-5 bg-black">
-      <div class="container">
-        <p class="m-0 text-center text-white small">Sin &copy; Disfrútalo con todos, en 2018 y más allá</p>
+    </div>
+    <footer class="main-footer">
+      <div class="footer-left">
+        <script>
+          document.write(new Date().getFullYear())
+        </script>
+        <a href="http://www.bemtorres.win" target="_blank">
+          <strong>Bemtorres</strong>
+        </a>
       </div>
-      <!-- /.container -->
+      <div class="footer-right"></div>
     </footer>
+  </div>
 
-    <script src="js/navbar.js"></script>
-    <script src="js/app.js"></script>
+  <script src="dist/modules/jquery.min.js"></script>
+  <script src="dist/modules/popper.js"></script>
+  <script src="dist/modules/tooltip.js"></script>
+  <script src="dist/modules/bootstrap/js/bootstrap.min.js"></script>
+  <script src="dist/modules/nicescroll/jquery.nicescroll.min.js"></script>
+  <script src="dist/modules/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
+  <script src="dist/js/sa-functions.js"></script>
 
-  </body>
+  <script src="dist/modules/summernote/summernote-lite.js"></script>
+
+  <script src="dist/js/scripts.js"></script>
+  <script src="dist/js/custom.js"></script>
+  <!-- 
+  <script src="dist/js/demo.js"></script>
+  -->
+  <script src="js/app.js"></script>
+</body>
 
 </html>

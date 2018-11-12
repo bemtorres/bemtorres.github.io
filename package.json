@@ -1,7 +1,7 @@
 {
-  "name": "pwa-one-page",
+  "name": "pwa-bemtorres",
   "version": "1.0.0",
-  "description": "Modify from [Start Bootstrap - One Page Wonder](https://startbootstrap.com/template-overviews/one-page-wonder/)",
+  "description": "Web bemtorres",
   "main": "index.js",
   "dependencies": {
     "http-server": "^0.11.1"
