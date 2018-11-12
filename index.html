@@ -1,262 +1,131 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
-<head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/ico" href="favicon.ico">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Bemtorres 2018 nuevo</title>
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'
-    />
-    <meta name="description" content="|PIENSA|ANALIZA|DESARROLLA|CREA| portafolio web Benjamin Mora">
-    <meta name="keywords" content="Proyectos Informaticos, desarrollar paginas web" />
-    <meta name="author" content="Bemtorres">
+  <head>
 
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-    <script src="https://use.fontawesome.com/b48aa89852.js"></script>
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="assets/css/now-ui-dashboard.css?v=1.0.1" rel="stylesheet" />
-    <link href="assets/demo/demo.css" rel="stylesheet" />
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112444389-2"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-        gtag('config', 'UA-112444389-2');
-    </script>
-</head>
+    <title>PWA Mola!</title>
 
-<body class="">
-    <!-- Load Facebook SDK for JavaScript -->
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = 'https://connect.facebook.net/es_ES/sdk/xfbml.customerchat.js#xfbml=1&version=v2.12&autoLogAppEvents=1';
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Your customer chat code -->
-<div class="fb-customerchat"
-  attribution=setup_tool
-  page_id="1677553832543067"
-  theme_color="#ffc300"
-  logged_in_greeting="Hola! Como te puedo ayudar?"
-  logged_out_greeting="Hola! Como te puedo ayudar?">
-</div>
-    <div class="wrapper ">
-        <div class="sidebar" data-color="orange">
-            <!--
-        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
-    -->
-            <div class="logo">
-                <a href="index.html" class="simple-text logo-normal">
-                    Bemtorres
-                </a>
-            </div>
-            <div class="sidebar-wrapper">
-                <ul class="nav">
-                    <li class="active">
-                        <a href="index.html">
-                            <i class="now-ui-icons users_single-02"></i>
-                            <p>Inicio</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="cursos.html">
-                            <i class="now-ui-icons tech_laptop" aria-hidden="true"></i>
-                            <p>Cursos</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="proyectos.html">
-                            <i class="now-ui-icons design_bullet-list-67"></i>
-                            <p>Proyectos</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="curriculum.html">
-                            <i class="now-ui-icons text_caps-small"></i>
-                            <p>Curriculum</p>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/one-page-wonder.css" rel="stylesheet">
+
+    <meta name="theme-color" content="#ee0979">
+    <link rel="manifest" href="/manifest.json">
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">PWA Mola!</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Sign Up</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Log In</a>
+            </li>
+          </ul>
         </div>
-        <div class="main-panel">
-            <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary fixed-top">
-                <div class="container-fluid">
-                    <div class="navbar-wrapper">
-                        <div class="navbar-toggle">
-                            <button type="button" class="navbar-toggler">
-                                <span class="navbar-toggler-bar bar1"></span>
-                                <span class="navbar-toggler-bar bar2"></span>
-                                <span class="navbar-toggler-bar bar3"></span>
-                            </button>
-                        </div>
-                        <a class="navbar-brand" href="#">PORTAFOLIO</a>
-                    </div>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-bar navbar-kebab"></span>
-                        <span class="navbar-toggler-bar navbar-kebab"></span>
-                        <span class="navbar-toggler-bar navbar-kebab"></span>
-                    </button>
-                    <div class="collapse navbar-collapse justify-content-end" id="navigation">
-                        <form>
-                            <div class="input-group no-border">
-                                <input type="text" value="" class="form-control" placeholder="Search...">
-                                <span class="input-group-addon">
-                                    <i class="now-ui-icons ui-1_zoom-bold"></i>
-                                </span>
-                            </div>
-                        </form>
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="now-ui-icons media-2_sound-wave"></i>
-                                    <p>
-                                        <span class="d-lg-none d-md-block">Stats</span>
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="now-ui-icons location_world"></i>
-                                    <p>
-                                        <span class="d-lg-none d-md-block">Action</span>
-                                    </p>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="#">Facebook</a>
-                                    <a class="dropdown-item" href="#">Instagram</a>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="now-ui-icons users_single-02"></i>
-                                    <p>
-                                        <span class="d-lg-none d-md-block">Account</span>
-                                    </p>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-            <div class="panel-header panel-header-sm">
-            </div>
-            <div class="content">
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="card-header">
+      </div>
+    </nav>
 
-                                   <a  title="Click para chatear" href="https://api.whatsapp.com/send?phone=56998299855&text=Hola%20gustaría%20saber%20preguntar" rel="noopener"  class="btn btn-success" target="_blink">
-                                        <i class="fa fa-whatsapp"></i>Hablame por whatsapp</a>
-                                <h5 class="title">Benjamin Mora</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <img src="assets/img/Certificado2018.jpg" alt="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card card-user">
-                            <div class="image">
-                                <img src="assets/img/sanbernardo.jpg" alt="duoc">
-                            </div>
-                            <div class="card-body">
-                                <div class="author">                                    
-                                    <a href="#">
-                                        <img class="avatar border-gray" src="assets/img//bem3.jpg" alt="benjamin">
-                                        <h5 class="title">Benjamin Mora</h5>
-                                
-                                    </a>
-                                    <p>
-                                        Estudiante de Ingenieria en Informatica
-                                        <span class="text-info">
-                                            <strong>DUOC</strong> UC</span>
-                                    </p>
-                                    <p>
-                                        <span class="text-info">
-                                            <strong>Capitan CITT</strong>
-                                        </span>
-                                    </p>
-                                </div>
-                                <p class="description text-center">
-                                    "Aprendamos a ser personas..."
-                                </p>
-                            </div>
-                            <hr>
-                            <div class="button-container">
-                                <a href="https://www.facebook.com/Benjaroach/" class="btn btn-neutral btn-icon btn-round btn-lg" target="_blink">
-                                    <i class="fa fa-facebook-square"></i>
-                                </a>
-                                <a href="https://www.instagram.com/bemtorres/" class="btn btn-neutral btn-icon btn-round btn-lg" target="_blink">
-                                    <i class="fa fa-instagram"></i>
-                                </a>
-                                <a href="https://github.com/bemtorres/" class="btn btn-neutral btn-icon btn-round btn-lg" target="_blink">
-                                    <i class="fa fa-github"></i>
-                                </a>
-                            </div>                           
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <footer class="footer">
-                <div class="container-fluid">
-                    <nav>
-                        <ul>
-                            <li>
-                                <a href="#">
-                                    Piensa
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    Analiza
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    Desarrolla
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    Crea
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <div class="copyright">
-                        &copy;
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script>
-                        <a href="http://www.bemtorres.win" target="_blank">
-                            <strong>Bemtorres</strong>
-                        </a>
-                    </div>
-                </div>
-            </footer>
+    <header class="masthead text-center text-white">
+      <div class="masthead-content">
+        <div class="container">
+          <h1 class="masthead-heading mb-0">PWA Mola!</h1>
+          <h2 class="masthead-subheading mb-0">Will Rock Your Socks Off</h2>
+          <a href="#" class="btn btn-primary btn-xl rounded-pill mt-5">Click Me!</a>
         </div>
-    </div>
-</body>
+      </div>
+      <div class="bg-circle-1 bg-circle"></div>
+      <div class="bg-circle-2 bg-circle"></div>
+      <div class="bg-circle-3 bg-circle"></div>
+      <div class="bg-circle-4 bg-circle"></div>
+    </header>
 
-<script src="assets/js/core/jquery.min.js"></script>
-<script src="assets/js/core/popper.min.js"></script>
-<script src="assets/js/core/bootstrap.min.js"></script>
-<script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-<script src="assets/js/plugins/chartjs.min.js"></script>
-<script src="assets/js/plugins/bootstrap-notify.js"></script>
-<script src="assets/js/now-ui-dashboard.js?v=1.0.1"></script>
-<script src="assets/demo/demo.js"></script>
+    <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 order-lg-2">
+            <div class="p-5">
+              <img class="img-fluid rounded-circle" src="img/01.jpg" alt="">
+            </div>
+          </div>
+          <div class="col-lg-6 order-lg-1">
+            <div class="p-5">
+              <h2 class="display-4">For those about to rock...</h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <div class="p-5">
+              <img class="img-fluid rounded-circle" src="img/02.jpg" alt="">
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="p-5">
+              <h2 class="display-4">We salute you!</h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 order-lg-2">
+            <div class="p-5">
+              <img class="img-fluid rounded-circle" src="img/03.jpg" alt="">
+            </div>
+          </div>
+          <div class="col-lg-6 order-lg-1">
+            <div class="p-5">
+              <h2 class="display-4">Let there be rock!</h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-5 bg-black">
+      <div class="container">
+        <p class="m-0 text-center text-white small">Sin &copy; Disfrútalo con todos, en 2018 y más allá</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <script src="js/navbar.js"></script>
+    <script src="js/app.js"></script>
+
+  </body>
 
 </html>

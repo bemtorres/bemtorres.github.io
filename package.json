@@ -1,0 +1,15 @@
+{
+  "name": "pwa-one-page",
+  "version": "1.0.0",
+  "description": "Modify from [Start Bootstrap - One Page Wonder](https://startbootstrap.com/template-overviews/one-page-wonder/)",
+  "main": "index.js",
+  "dependencies": {
+    "http-server": "^0.11.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "http-server -c-1"
+  },
+  "author": "",
+  "license": "ISC"
+}
