@@ -8,6 +8,8 @@ var urlsToCache = [
   '/dist/modules/summernote/summernote-lite.css',
   '/dist/css/demo.css',
   '/dist/css/style.css',
+  '/dist/css/custom.css',
+  '/dist/css/skins/darksidebar.css',
   '/dist/modules/jquery.min.js',
   '/dist/modules/popper.js',
   '/dist/modules/tooltip.js',

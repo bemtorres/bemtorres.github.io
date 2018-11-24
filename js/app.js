@@ -7,6 +7,6 @@ if ('serviceWorker' in navigator) {
         })
         .catch(function(err) {
             console.log('ServiceWorker failed :(', err);
-        });
+        });   
     });
   }
