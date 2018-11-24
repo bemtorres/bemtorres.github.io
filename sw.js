@@ -1,4 +1,4 @@
-var CACHE_NAME = 'bemtorres-cache-v1';
+var CACHE_NAME = 'bem-cache-v2';
 var urlsToCache = [
   '/',
   '/dist/img/avatar/avatar-1.jpg',
@@ -51,19 +51,19 @@ self.addEventListener('fetch', function(event) {
     );
 });
 
-// self.addEventListener('activate', event => {
-//     // remove old caches
-//     event.waitUntil(
-//       caches.keys().then(keys => Promise.all(
-//         keys.map(key => {
-//           if (key != CACHE_NAME) {
-//             return caches.delete(key);
-//           }
-//         })
-//       )).then(() => {
-//         console.log('Now ready to handle fetches!');
-//       })
-//     );
-// });
+ self.addEventListener('activate', event => {
+     // remove old caches
+     event.waitUntil(
+       caches.keys().then(keys => Promise.all(
+         keys.map(key => {
+           if (key != CACHE_NAME) {
+             return caches.delete(key);
+           }
+         })
+       )).then(() => {
+         console.log('Now ready to handle fetches!');
+       })
+     );
+ });
 
 
