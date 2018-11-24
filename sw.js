@@ -1,4 +1,4 @@
-var CACHE_NAME = 'bem-cache-v2';
+var CACHE_NAME = 'bem-cache-v3';
 var urlsToCache = [
   '/',
   '/dist/img/avatar/avatar-1.jpg',
@@ -96,7 +96,7 @@ self.addEventListener('fetch', function(event) {
      // remove old caches
 
      //  var cacheWhitelist = ['pages-cache-v1', 'blog-posts-cache-v1'];
-     
+
      event.waitUntil(
        caches.keys().then(keys => Promise.all(
          keys.map(key => {
