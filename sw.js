@@ -1,6 +1,8 @@
 var CACHE_NAME = 'bem-cache-v3';
 var urlsToCache = [
   '/',
+  '/index.html',
+  '/favicon.ico',
   '/dist/img/avatar/avatar-1.jpg',
   '/dist/modules/bootstrap/css/bootstrap.min.css',
   '/dist/modules/ionicons/css/ionicons.min.css',
