@@ -1,7 +1,7 @@
 
-const CACHE_STATIC_NAME = 'static-v1';
-const CACHE_DYNAMIC_NAME = 'dynamic-v1';
-const CACHE_INMUTABLE_NAME = 'inmutable-v1';
+const CACHE_STATIC_NAME = 'static-v2';
+const CACHE_DYNAMIC_NAME = 'dynamic-v2';
+const CACHE_INMUTABLE_NAME = 'inmutable-v2';
 
 
 //guardamos el cache
@@ -33,8 +33,7 @@ self.addEventListener('install', e =>{
                 '/dist/js/custom.js ',
                 '/dist/img/news/img01.jpg',
                 '/dist/img/news/img07.jpg',  
-                '/dist/img/news/img08.jpg',
-                '/manifest.json'
+                '/dist/img/news/img08.jpg'
               ]); 
         });
 
@@ -42,9 +41,7 @@ self.addEventListener('install', e =>{
         .then(cache => { //las cosas que quiero grabar
             return cache.addAll([
                  'https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900',
-                'https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i',
-                '/CNAME',
-                '/google01fde97b7e5e77fa.html'
+                'https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i'
                  ]);
         });    
 
