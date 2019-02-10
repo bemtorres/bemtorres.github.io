@@ -33,7 +33,8 @@ self.addEventListener('install', e =>{
                 '/dist/js/custom.js ',
                 '/dist/img/news/img01.jpg',
                 '/dist/img/news/img07.jpg',  
-                '/dist/img/news/img08.jpg'
+                '/dist/img/news/img08.jpg',
+                '/manifest.json'
               ]); 
         });
 
@@ -41,8 +42,9 @@ self.addEventListener('install', e =>{
         .then(cache => { //las cosas que quiero grabar
             return cache.addAll([
                  'https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900',
-                'https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i'
-
+                'https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i',
+                '/CNAME',
+                '/google01fde97b7e5e77fa.html'
                  ]);
         });    
 
