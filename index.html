@@ -106,7 +106,7 @@
                     <img class="profile-user-img img-fluid img-circle" src="/img/foto1.jfif" alt="User profile picture">
                   </div>
                   <h3 class="profile-username text-center">Benjamín Mora Torres</h3>
-                  <p class="text-muted text-center">Estudiante de Ingeniería en informática</p>
+                  <p class="text-muted text-center">Ingeniero en informática</p>
                   <p class="text-center"><strong>Duoc UC - San Bernardo</strong></p>
 
                   <ul class="list-group list-group-unbordered mb-3">
@@ -212,8 +212,6 @@
                         <div class="row">                          
                           <div class="col-md-12">
                             <a href="" data-toggle="lightbox" data-title="Pariticipación Hackathon ACHS 2019" data-gallery="HackathonA">
-                              <!-- <img src="" class="img-thumbnail" alt="Pariticipación Hackathon ACHS 2019"/>
-                               -->
                                <iframe width="100%" height="315" src="https://www.youtube.com/embed/QUdF93Cn-G4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                             </a>
                           </div>
@@ -827,6 +825,30 @@
       </div>
     </footer>
   </div>
+
+  <button type="button"  class="btn btn-primary" data-toggle="modal" data-target="#modal"></button>
+  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <!-- <h5 class="modal-title" id="modal">Modal title</h5> -->
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Hola bienvenido a Bemtorres
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
   <!-- jQuery -->
   <script src="/plugins/jquery/jquery.min.js"></script>
   <!-- Bootstrap 4 -->
@@ -851,6 +873,20 @@
       });
     })
   </script>
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
+  <script>
+  if (annyang) {
+    var commands = {
+      'hello': function() {
+        $('#modal').modal('show');
+      }
+    };
+    annyang.addCommands(commands);
+    annyang.start();
+  }
+  </script>
+
 </body>
 
 </html>
