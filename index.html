@@ -35,6 +35,8 @@
   <!-- <meta name="theme-color" content="#212529"> -->
   <!-- <link rel="manifest" href="manifest.json">  -->
   <!-- <script src="js/app.js"></script> -->
+  <link rel="stylesheet" href="/dist/dark-mode.css">
+
 </head>
 
 <body class="hold-transition layout-top-nav">
@@ -79,9 +81,13 @@
             <li class="nav-item">
               <a href="#" class="nav-link disabled">Cursos</a>
             </li>
-            <!-- <li class="nav-item">
-              <a href="#" class="nav-link">Proyectos</a>
-            </li> -->
+            <li class="nav-item ml-5">
+              <!-- <a href="#" class="nav-link">Proyectos</a> -->
+              <div class="custom-control custom-switch nav-link">
+                <input type="checkbox" class="custom-control-input" id="darkSwitch">
+                <label class="custom-control-label" for="darkSwitch">Dark Mode</label>
+              </div>
+            </li>
           </ul>
         </div>
       </div>
@@ -966,6 +972,7 @@
     annyang.start();
   }
   </script>
+  <script src="/dist/dark-mode-switch.js"></script>
 
 </body>
 
