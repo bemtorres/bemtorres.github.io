@@ -8,7 +8,7 @@
 }
 
 [data-theme="dark"] .bg-white {
-  background-color: #000 !important;
+  background-color: #3f3f3f !important;
 }
 
 [data-theme="dark"] .bg-black {
@@ -25,6 +25,14 @@
   background: #303030 !important;
   color: #fff;
 }
+
+[data-theme="dark"] .navbar-bg{
+  /* background-color: rgb(123, 48, 48)98, 56, 56); */
+  background: #f3f3f3 !important;
+  color: #fff;
+}
+
+
 
 
 [data-theme="dark"] .navbar-white {
