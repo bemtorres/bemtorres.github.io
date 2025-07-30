@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Página no encontrada">
+  <div class="text-center py-12">
+    <div class="text-6xl mb-4">😕</div>
+    <h1 class="text-4xl font-bold text-gray-900 mb-4">Página no encontrada</h1>
+    <p class="text-xl text-gray-600 mb-8">
+      Lo sentimos, la página que buscas no existe o ha sido movida.
+    </p>
+    <div class="space-x-4">
+      <a 
+        href="/" 
+        class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors"
+      >
+        Ir al Inicio
+      </a>
+      <a 
+        href="/clases" 
+        class="inline-flex items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors"
+      >
+        Ver Clases
+      </a>
+    </div>
+  </div>
+</Layout> 
