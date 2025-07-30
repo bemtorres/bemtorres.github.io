@@ -91,30 +91,30 @@ const classes: Class[] = [
         name: 'Caso de estudio',
         type: 'content',
         fileType: 'folder',
-        url: 'https://docs.google.com/presentation/d/1eM_piO7Kdqo0--LQv638VBNx7fiPGyA2/edit?usp=sharing&ouid=111508538317434257680&rtpof=true&sd=true'
+        url: 'https://drive.google.com/drive/folders/1FOFOLtmD1wDf642-xca2XdDaoWRItG3D?usp=sharing'
       },
-      {
-        name: 'Caso de estudio',
-        type: 'content',
-        fileType: 'folder',
-        status: 'hidden',
-        url: 'https://docs.google.com/presentation/d/1eM_piO7Kdqo0--LQv638VBNx7fiPGyA2/edit?usp=sharing&ouid=111508538317434257680&rtpof=true&sd=true'
-      },
+      // {
+      //   name: 'Caso de estudio',
+      //   type: 'content',
+      //   fileType: 'folder',
+      //   status: 'hidden',
+      //   url: 'https://docs.google.com/presentation/d/1eM_piO7Kdqo0--LQv638VBNx7fiPGyA2/edit?usp=sharing&ouid=111508538317434257680&rtpof=true&sd=true'
+      // },
       // {
       //   name: 'Carpeta de materiales',
       //   type: 'content',
       //   fileType: 'folder',
       //   url: 'https://drive.google.com/drive/folders/1FOFOLtmD1wDf642-xca2XdDaoWRItG3D?usp=sharing'
       // },
-      {
-        name: 'Presentation - Basic Concepts (Destacado)',
-        type: 'content',
-        highlight: true,
-        highlightFlow: true,
-        fileType: 'ppt',
-        // size: '2.5 MB',
-        url: '/documentos/clase-1/template.xlsx'
-      },
+      // {
+      //   name: 'Presentation - Basic Concepts (Destacado)',
+      //   type: 'content',
+      //   highlight: true,
+      //   highlightFlow: true,
+      //   fileType: 'ppt',
+      //   // size: '2.5 MB',
+      //   url: '/documentos/clase-1/template.xlsx'
+      // },
     ]
   },
   // {
