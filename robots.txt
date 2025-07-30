@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bemtorres.github.io/bemtorres.github.io/sitemap.xml 
