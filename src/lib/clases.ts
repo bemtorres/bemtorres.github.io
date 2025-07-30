@@ -1,135 +1,176 @@
 export interface Material {
-  nombre: string;
+  name: string;
   type: string;
-  descripcion?: string;
-  tamaño?: string;
+  description?: string;
+  size?: string;
   url?: string;
-  tipo?: string;
+  password?: string;
+  fileType?: string;
   highlight?: boolean;
+  highlightFlow?: boolean;
+  status?: string;
 }
 
-export interface Clase {
+export interface Class {
   id: string;
-  titulo: string;
-  descripcion: string;
-  fecha: string;
-  archivos?: number;
-  materiales: Material[];
+  title: string;
+  description: string;
+  date: string;
+  files?: number;
+  materials: Material[];
 }
 
-const clases: Clase[] = [
+const classes: Class[] = [
   {
-    id: '2025-fundamentos-de-bases-de-datos',
-    titulo: 'Fundamentos de Bases de Datos',
-    descripcion: 'Conceptos básicos de bases de datos',
-    fecha: '2025-07-30',
-    materiales: [
+    id: '2025-database-fundamentals',
+    title: 'Fundamentos de bases de datos',
+    description: 'Conceptos basicos y principios de las bases de datos',
+    date: '2025-07-30',
+    materials: [
       {
-        nombre: 'Unidad 1: Introducción a las Bases de Datos y artectura de un DBMS',
+        name: 'Unidad 1: Introduccion a las bases de datos y a la arquitectura de DBMS',
         type: 'title',
-        descripcion: 'Contenido 8 horas..'
+        description: 'Contenido: 8 horas de material de estudio'
       },
       {
-        nombre: 'Semana 1 - ',
+        name: 'Semana 1 - 23 Julio 2025',
         type: 'subtitle',
-        descripcion: 'Haz clic en cualquier archivo para descargarlo. Todos los materiales están organizados para facilitar tu estudio.'
+        description: 'Click on any file to download it. All materials are organized to facilitate your study.'
       },
       {
-        nombre: 'Presentación - Conceptos Básicos',
+        name: 'Presentacion - Conceptos Basicos',
         type: 'content',
-        tipo: 'ppt',
-        tamaño: '2.5 MB',
-        url: '/documentos/clase-1/template.xlsx'
+        fileType: 'ppt',
+        // size: '2.5 MB',
+        // password: "123456",
+        // status: 'locked',
+        url: 'https://docs.google.com/presentation/d/1o2AfYhShcnFcPS1PPX7JijrNp-Ctx5hl/edit?usp=sharing&ouid=111508538317434257680&rtpof=true&sd=true'
       },
       {
-        nombre: 'Presentación - Conceptos Básicos',
+        name: 'Archivo de Ejercicios',
         type: 'content',
-        tipo: 'link',
+        fileType: 'xlsx',
+        // size: '2.5 MB',
+        // password: "123456",
+        // status: 'locked',
+        url: 'https://docs.google.com/spreadsheets/d/1LAPnnvW1kpAsCdxXAC_OFdjtfAAjRgvQ/edit?usp=sharing&ouid=111508538317434257680&rtpof=true&sd=true'
+      },
+      {
+        name: 'Material Oculto (No se muestra)',
+        type: 'content',
+        fileType: 'pdf',
+        size: '1.2 MB',
+        status: 'hidden',
+        url: 'https://example.com/hidden-file.pdf'
+      },
+      {
+        name: 'Presentation - Basic Concepts',
+        type: 'content',
+        fileType: 'link',
+        // status: 'unlocked',
+        status: 'hidden',
         url: 'https://www.google.com'
       },
       {
-        nombre: 'Presentación - Conceptos Básicos',
+        name: 'Video Tutorial - Database Basics',
+        type: 'content',
+        fileType: 'youtube',
+        highlightFlow: true,
+        // password: "123456",
+        // status: 'locked',
+        status: 'hidden',
+
+        url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+      },
+      {
+        name: 'Semana 2 - 30 Julio 2025',
+        type: 'subtitle',
+        description: 'Click on any file to download it. All materials are organized to facilitate your study.'
+      },
+      {
+        name: 'Caso de estudio',
+        type: 'content',
+        fileType: 'folder',
+        url: 'https://docs.google.com/presentation/d/1eM_piO7Kdqo0--LQv638VBNx7fiPGyA2/edit?usp=sharing&ouid=111508538317434257680&rtpof=true&sd=true'
+      },
+      {
+        name: 'Caso de estudio',
+        type: 'content',
+        fileType: 'folder',
+        status: 'hidden',
+        url: 'https://docs.google.com/presentation/d/1eM_piO7Kdqo0--LQv638VBNx7fiPGyA2/edit?usp=sharing&ouid=111508538317434257680&rtpof=true&sd=true'
+      },
+      // {
+      //   name: 'Carpeta de materiales',
+      //   type: 'content',
+      //   fileType: 'folder',
+      //   url: 'https://drive.google.com/drive/folders/1FOFOLtmD1wDf642-xca2XdDaoWRItG3D?usp=sharing'
+      // },
+      {
+        name: 'Presentation - Basic Concepts (Destacado)',
         type: 'content',
         highlight: true,
-        tipo: 'ppt',
-        tamaño: '2.5 MB',
+        highlightFlow: true,
+        fileType: 'ppt',
+        // size: '2.5 MB',
         url: '/documentos/clase-1/template.xlsx'
       },
-      {
-        nombre: 'Semana 2',
-        type: 'title',
-        descripcion: 'Haz clic en cualquier archivo para descargarlo. Todos los materiales están organizados para facilitar tu estudio.'
-      },
-      {
-        nombre: 'Ejercicios pdf',
-        type: 'content',
-        tipo: 'pdf',
-        tamaño: '1.8 MB',
-        url: '/documentos/clase-1/template.pdf'
-      },
-      {
-        nombre: 'Guía de Estudio',
-        type: 'content',
-        tipo: 'docx',
-        tamaño: '3.2 MB',
-        url: '/documentos/clase-1/guia-estudio.docx'
-      }
     ]
   },
-  {
-    id: 'clase-2',
-    titulo: 'Estructuras de Datos',
-    descripcion: 'Arrays, listas, pilas y colas',
-    fecha: '2024-01-22',
-    materiales: [
-      {
-        nombre: 'Estructuras Lineales',
-        type: 'title',
-        descripcion: 'Arrays, listas enlazadas y sus implementaciones'
-      },
-      {
-        nombre: 'Teoría - Estructuras de Datos',
-        type: 'content',
-        tipo: 'pdf',
-        tamaño: '4.1 MB',
-        url: '/documentos/clase-2/teoria-estructuras.pdf'
-      },
-      {
-        nombre: 'Implementaciones en Java',
-        type: 'content',
-        tipo: 'zip',
-        tamaño: '2.3 MB',
-        url: '/documentos/clase-2/implementaciones-java.zip'
-      }
-    ]
-  },
-  {
-    id: 'clase-3',
-    titulo: 'Programación Orientada a Objetos',
-    descripcion: 'Clases, objetos, herencia y polimorfismo',
-    fecha: '2024-01-29',
-    materiales: [
-      {
-        nombre: 'Conceptos de POO',
-        type: 'title',
-        descripcion: 'Encapsulamiento, herencia y polimorfismo'
-      },
-      {
-        nombre: 'Presentación - POO',
-        type: 'content',
-        tipo: 'ppt',
-        tamaño: '5.2 MB',
-        url: '/documentos/clase-3/presentacion-poo.pptx'
-      },
-      {
-        nombre: 'Proyecto Práctico',
-        type: 'content',
-        tipo: 'zip',
-        tamaño: '8.7 MB',
-        url: '/documentos/clase-3/proyecto-practico.zip'
-      }
-    ]
-  }
+  // {
+  //   id: 'class-2',
+  //   title: 'Data Structures',
+  //   description: 'Arrays, lists, stacks and queues',
+  //   date: '2024-01-22',
+  //   materials: [
+  //     {
+  //       name: 'Linear Structures',
+  //       type: 'title',
+  //       description: 'Arrays, linked lists and their implementations'
+  //     },
+  //     {
+  //       name: 'Theory - Data Structures',
+  //       type: 'content',
+  //       fileType: 'pdf',
+  //       size: '4.1 MB',
+  //       url: '/documentos/clase-2/teoria-estructuras.pdf'
+  //     },
+  //     {
+  //       name: 'Java Implementations',
+  //       type: 'content',
+  //       fileType: 'zip',
+  //       size: '2.3 MB',
+  //       url: '/documentos/clase-2/implementaciones-java.zip'
+  //     }
+  //   ]
+  // },
+  // {
+  //   id: 'class-3',
+  //   title: 'Object-Oriented Programming',
+  //   description: 'Classes, objects, inheritance and polymorphism',
+  //   date: '2024-01-29',
+  //   materials: [
+  //     {
+  //       name: 'OOP Concepts',
+  //       type: 'title',
+  //       description: 'Encapsulation, inheritance and polymorphism'
+  //     },
+  //     {
+  //       name: 'Presentation - OOP',
+  //       type: 'content',
+  //       fileType: 'ppt',
+  //       size: '5.2 MB',
+  //       url: '/documentos/clase-3/presentacion-poo.pptx'
+  //     },
+  //     {
+  //       name: 'Practical Project',
+  //       type: 'content',
+  //       fileType: 'zip',
+  //       size: '8.7 MB',
+  //       url: '/documentos/clase-3/proyecto-practico.zip'
+  //     }
+  //   ]
+  // }
 ];
 
-export default clases; 
+export default classes; 

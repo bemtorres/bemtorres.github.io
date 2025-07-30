@@ -1,114 +1,141 @@
 export interface Material {
-  nombre: string;
+  name: string;
   type: string;
-  descripcion?: string;
-  tamaño?: string;
+  description?: string;
+  size?: string;
   url?: string;
-  tipo?: string; // Para los iconos de archivos
+  fileType?: string;
+  highlight?: boolean;
 }
 
-export interface Clase {
+export interface Class {
   id: string;
-  titulo: string;
-  descripcion: string;
-  fecha: string;
-  materiales: Material[];
+  title: string;
+  description: string;
+  date: string;
+  files?: number;
+  materials: Material[];
 }
 
-const clases: Clase[] = [
+const classes: Class[] = [
   {
-    id: 'clase-1',
-    titulo: 'Fundamentos de Bases de Datos',
-    descripcion: 'Conceptos básicos de bases de datos',
-    fecha: '2024-07-23',
-    materiales: [
+    id: '2025-database-fundamentals',
+    title: 'Database Fundamentals',
+    description: 'Basic database concepts and principles',
+    date: '2025-07-30',
+    materials: [
       {
-        nombre: 'Semana 1',
+        name: 'Unit 1: Introduction to Databases and DBMS Architecture',
         type: 'title',
-        descripcion: 'Haz clic en cualquier archivo para descargarlo. Todos los materiales están organizados para facilitar tu estudio.'
+        description: 'Content: 8 hours of study material'
       },
       {
-        nombre: 'Presentación - Conceptos Básicos',
+        name: 'Week 1 - ',
+        type: 'subtitle',
+        description: 'Click on any file to download it. All materials are organized to facilitate your study.'
+      },
+      {
+        name: 'Presentation - Basic Concepts',
         type: 'content',
-        tipo: 'ppt',
-        tamaño: '2.5 MB',
+        fileType: 'ppt',
+        size: '2.5 MB',
         url: '/documentos/clase-1/template.xlsx'
       },
       {
-        nombre: 'Semana 2',
-        type: 'title',
-        descripcion: 'Haz clic en cualquier archivo para descargarlo. Todos los materiales están organizados para facilitar tu estudio.'
+        name: 'Presentation - Basic Concepts',
+        type: 'content',
+        fileType: 'link',
+        url: 'https://www.google.com'
       },
       {
-        nombre: 'Ejercicios pdf',
+        name: 'Video Tutorial - Database Basics',
         type: 'content',
-        tipo: 'pdf',
-        tamaño: '1.8 MB',
+        fileType: 'youtube',
+        url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+      },
+      {
+        name: 'Presentation - Basic Concepts',
+        type: 'content',
+        highlight: true,
+        fileType: 'ppt',
+        size: '2.5 MB',
+        url: '/documentos/clase-1/template.xlsx'
+      },
+      {
+        name: 'Week 2',
+        type: 'title',
+        description: 'Click on any file to download it. All materials are organized to facilitate your study.'
+      },
+      {
+        name: 'PDF Exercises',
+        type: 'content',
+        fileType: 'pdf',
+        size: '1.8 MB',
         url: '/documentos/clase-1/template.pdf'
       },
       {
-        nombre: 'Guía de Estudio',
+        name: 'Study Guide',
         type: 'content',
-        tipo: 'docx',
-        tamaño: '3.2 MB',
+        fileType: 'docx',
+        size: '3.2 MB',
         url: '/documentos/clase-1/guia-estudio.docx'
       }
     ]
   },
   {
-    id: 'clase-2',
-    titulo: 'Estructuras de Datos',
-    descripcion: 'Arrays, listas, pilas y colas',
-    fecha: '2024-01-22',
-    materiales: [
+    id: 'class-2',
+    title: 'Data Structures',
+    description: 'Arrays, lists, stacks and queues',
+    date: '2024-01-22',
+    materials: [
       {
-        nombre: 'Estructuras Lineales',
+        name: 'Linear Structures',
         type: 'title',
-        descripcion: 'Arrays, listas enlazadas y sus implementaciones'
+        description: 'Arrays, linked lists and their implementations'
       },
       {
-        nombre: 'Teoría - Estructuras de Datos',
+        name: 'Theory - Data Structures',
         type: 'content',
-        tipo: 'pdf',
-        tamaño: '4.1 MB',
+        fileType: 'pdf',
+        size: '4.1 MB',
         url: '/documentos/clase-2/teoria-estructuras.pdf'
       },
       {
-        nombre: 'Implementaciones en Java',
+        name: 'Java Implementations',
         type: 'content',
-        tipo: 'zip',
-        tamaño: '2.3 MB',
+        fileType: 'zip',
+        size: '2.3 MB',
         url: '/documentos/clase-2/implementaciones-java.zip'
       }
     ]
   },
   {
-    id: 'clase-3',
-    titulo: 'Programación Orientada a Objetos',
-    descripcion: 'Clases, objetos, herencia y polimorfismo',
-    fecha: '2024-01-29',
-    materiales: [
+    id: 'class-3',
+    title: 'Object-Oriented Programming',
+    description: 'Classes, objects, inheritance and polymorphism',
+    date: '2024-01-29',
+    materials: [
       {
-        nombre: 'Conceptos de POO',
+        name: 'OOP Concepts',
         type: 'title',
-        descripcion: 'Encapsulamiento, herencia y polimorfismo'
+        description: 'Encapsulation, inheritance and polymorphism'
       },
       {
-        nombre: 'Presentación - POO',
+        name: 'Presentation - OOP',
         type: 'content',
-        tipo: 'ppt',
-        tamaño: '5.2 MB',
+        fileType: 'ppt',
+        size: '5.2 MB',
         url: '/documentos/clase-3/presentacion-poo.pptx'
       },
       {
-        nombre: 'Proyecto Práctico',
+        name: 'Practical Project',
         type: 'content',
-        tipo: 'zip',
-        tamaño: '8.7 MB',
+        fileType: 'zip',
+        size: '8.7 MB',
         url: '/documentos/clase-3/proyecto-practico.zip'
       }
     ]
   }
 ];
 
-export default clases; 
+export default classes; 

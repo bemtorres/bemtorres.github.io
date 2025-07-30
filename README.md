@@ -1,30 +1,30 @@
-# Sistema de Documentación Estudiantil
+# Student Documentation System
 
-Un sistema web simple y fácil de usar para que los estudiantes accedan y descarguen materiales de clase organizados por asignatura.
+A simple and easy-to-use web system for students to access and download class materials organized by subject.
 
-## 🚀 Características
+## 🚀 Features
 
-- **Interfaz Simple**: Diseñada específicamente para estudiantes
-- **Organización por Clases**: Materiales organizados por asignatura
-- **Descarga Directa**: Acceso directo a archivos PDF, PPT, DOCX, etc.
-- **Responsive**: Funciona en dispositivos móviles y de escritorio
-- **Estático**: No requiere base de datos, perfecto para GitHub Pages
+- **Simple Interface**: Designed specifically for students
+- **Class Organization**: Materials organized by subject
+- **Direct Download**: Direct access to PDF, PPT, DOCX files, etc.
+- **Responsive**: Works on mobile and desktop devices
+- **Static**: No database required, perfect for GitHub Pages
 
-## 📁 Estructura del Proyecto
+## 📁 Project Structure
 
 ```
 bemtorres.github.io/
 ├── src/
 │   ├── layouts/
-│   │   └── Layout.astro          # Layout principal
+│   │   └── Layout.astro          # Main layout
 │   ├── pages/
-│   │   ├── index.astro           # Página de inicio
+│   │   ├── index.astro           # Home page
 │   │   └── clases/
-│   │       ├── index.astro       # Lista de clases
-│   │       └── [id].astro        # Página de clase específica
-│   └── styles/                   # Estilos CSS
+│   │       ├── index.astro       # Class list
+│   │       └── [id].astro        # Specific class page
+│   └── styles/                   # CSS styles
 ├── public/
-│   └── documentos/               # Carpeta para archivos
+│   └── documentos/               # Files folder
 │       ├── clase-1/
 │       ├── clase-2/
 │       └── ...
@@ -33,63 +33,60 @@ bemtorres.github.io/
 └── package.json
 ```
 
-## 🛠️ Instalación
+## 🛠️ Installation
 
-1. **Clonar el repositorio**:
+1. **Clone the repository**:
    ```bash
    git clone https://github.com/bemtorres/bemtorres.github.io.git
    cd bemtorres.github.io
    ```
 
-2. **Instalar dependencias**:
+2. **Install dependencies**:
    ```bash
    npm install
    ```
 
-3. **Ejecutar en desarrollo**:
+3. **Run in development**:
    ```bash
    npm run dev
    ```
 
-4. **Construir para producción**:
+4. **Build for production**:
    ```bash
    npm run build
    ```
 
-## 📝 Cómo Agregar Nuevas Clases
+## 📝 How to Add New Classes
 
-### 1. Agregar Datos de la Clase
+### 1. Add Class Data
 
-Edita el archivo `src/pages/clases/[id].astro` y agrega una nueva entrada en el array `clases`:
+Edit the file `src/lib/clases.ts` and add a new entry in the `classes` array:
 
 ```javascript
 {
-  id: 'clase-5',
-  titulo: 'Nueva Clase',
-  descripcion: 'Descripción de la nueva clase',
-  fecha: '2024-02-12',
-  materiales: [
+  id: 'class-5',
+  title: 'New Class',
+  description: 'Description of the new class',
+  date: '2024-02-12',
+  materials: [
     {
-      nombre: 'Presentación de la Clase',
-      tipo: 'ppt',
-      tamaño: '3.2 MB',
+      name: 'Class Presentation',
+      type: 'content',
+      fileType: 'ppt',
+      size: '3.2 MB',
       url: '/documentos/clase-5/presentacion.pptx'
     }
   ]
 }
 ```
 
-### 2. Actualizar Lista de Clases
+### 2. Upload Files
 
-Edita `src/pages/clases/index.astro` y agrega la nueva clase al array `clases`.
+Place the class files in the folder `public/documentos/clase-5/`.
 
-### 3. Subir Archivos
+## 📂 File Organization
 
-Coloca los archivos de la clase en la carpeta `public/documentos/clase-5/`.
-
-## 📂 Organización de Archivos
-
-Los documentos deben organizarse de la siguiente manera:
+Documents should be organized as follows:
 
 ```
 public/documentos/
@@ -103,71 +100,71 @@ public/documentos/
 └── ...
 ```
 
-## 🎨 Personalización
+## 🎨 Customization
 
-### Colores
+### Colors
 
-Los colores se pueden personalizar editando `tailwind.config.mjs`:
+Colors can be customized by editing `tailwind.config.mjs`:
 
 ```javascript
 colors: {
   primary: {
     50: '#eff6ff',
-    500: '#3b82f6',  // Color principal
+    500: '#3b82f6',  // Main color
     600: '#2563eb',
     700: '#1d4ed8',
   }
 }
 ```
 
-### Tipos de Archivo
+### File Types
 
-Para agregar nuevos tipos de archivo, edita la función `getIconoArchivo` en `[id].astro`:
+To add new file types, edit the `getFileIcon` function in `[id].astro`:
 
 ```javascript
-function getIconoArchivo(tipo: string) {
-  const iconos: Record<string, string> = {
+function getFileIcon(fileType: string) {
+  const icons: Record<string, string> = {
     pdf: '📄',
     ppt: '📊',
     docx: '📝',
     zip: '📦',
     sql: '🗄️',
-    // Agregar nuevos tipos aquí
+    // Add new types here
     xlsx: '📊',
     txt: '📄'
   };
-  return iconos[tipo] || '📄';
+  return icons[fileType] || '📄';
 }
 ```
 
-## 🚀 Despliegue en GitHub Pages
+## 🚀 Deploy to GitHub Pages
 
-1. **Habilitar GitHub Pages** en la configuración del repositorio
-2. **Configurar la fuente** como "GitHub Actions"
-3. **Crear workflow** (se crea automáticamente con Astro)
+1. **Enable GitHub Pages** in repository settings
+2. **Set source** as "GitHub Actions"
+3. **Create workflow** (created automatically with Astro)
 
-El sitio estará disponible en: `https://bemtorres.github.io/bemtorres.github.io`
+The site will be available at: `https://bemtorres.github.io/bemtorres.github.io`
 
-## 📱 Características Técnicas
+## 📱 Technical Features
 
 - **Framework**: Astro
-- **Estilos**: Tailwind CSS
-- **Lenguaje**: TypeScript
+- **Styles**: Tailwind CSS
+- **Language**: TypeScript
 - **Hosting**: GitHub Pages
-- **Rendimiento**: Sitio estático optimizado
+- **Performance**: Optimized static site
 
-## 🤝 Contribución
+## 🤝 Contributing
 
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
+1. Fork the project
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## 📄 Licencia
+## 📄 License
 
-Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
+This project is under the MIT License. See the `LICENSE` file for more details.
 
-## 📞 Soporte
+## 📞 Support
 
-Si tienes preguntas o necesitas ayuda, contacta al profesor o crea un issue en el repositorio. 
+If you have questions or need help, contact the professor or create an issue in the repository. 

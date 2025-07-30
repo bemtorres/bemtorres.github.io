@@ -1,41 +1,41 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import clases from '../../lib/clases';
+import classes from '../../lib/clases';
 
 ---
 
-<Layout title="Clases Disponibles">
-  <div class="mb-8">
-    <h1 class="text-3xl font-bold text-gray-900 mb-4">Clases Disponibles</h1>
-    <p class="text-gray-600">
-      Selecciona una clase para ver todos los materiales y documentos disponibles.
+<Layout title="Available Classes">
+  <div class="mb-6 sm:mb-8 px-4 sm:px-6">
+    <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-4">Available Classes</h1>
+    <p class="text-gray-600 text-sm sm:text-base">
+      Select a class to view all available materials and documents.
     </p>
   </div>
 
-  <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-    {clases.map((clase) => (
+  <div class="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-4 sm:px-6">
+    {classes.map((classItem) => (
       <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
-        <div class="p-6">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-xl font-semibold text-gray-900">{clase.titulo}</h3>
-            {clase.archivos && (
-              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
-                {clase.archivos} archivos
+        <div class="p-4 sm:p-6">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 sm:mb-4 gap-2 sm:gap-0">
+            <h3 class="text-lg sm:text-xl font-semibold text-gray-900">{classItem.title}</h3>
+            {classItem.files && (
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800 self-start sm:self-auto">
+                {classItem.files} files
               </span>
             )}
           </div>
           
-          <p class="text-gray-600 mb-4">{clase.descripcion}</p>
-          <div class="flex items-center justify-between">
-            <span class="text-sm text-gray-500">
-              Fecha: {new Date(clase.fecha).toLocaleDateString('es-ES')}
+          <p class="text-gray-600 mb-4 text-sm sm:text-base">{classItem.description}</p>
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
+            <span class="text-xs sm:text-sm text-gray-500">
+              Date: {new Date(classItem.date).toLocaleDateString('en-US')}
             </span>
             <a 
-              href={`/clases/${clase.id}`}
-              class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors"
+              href={`/clases/${classItem.id}`}
+              class="inline-flex items-center justify-center px-3 sm:px-4 py-2 border border-transparent text-xs sm:text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors w-full sm:w-auto"
             >
-              Ver Materiales
-              <svg class="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              View Materials
+              <svg class="ml-2 -mr-1 w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
               </svg>
             </a>
@@ -45,9 +45,9 @@ import clases from '../../lib/clases';
     ))}
   </div>
 
-  <div class="mt-12 text-center">
-    <p class="text-gray-500 text-sm">
-      ¿No encuentras tu clase? Contacta al profesor para agregar nuevos materiales.
+  <div class="mt-8 sm:mt-12 text-center px-4 sm:px-6">
+    <p class="text-gray-500 text-xs sm:text-sm">
+      Can't find your class? Contact the professor to add new materials.
     </p>
   </div>
 </Layout> 
