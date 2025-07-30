@@ -4,8 +4,11 @@ import tailwind from "@astrojs/tailwind";
 export default defineConfig({
   integrations: [tailwind()],
   ...(process.env.NODE_ENV === 'production' && {
-    base: "/bemtorres.github.io/",
-    site: "https://bemtorres.github.io",
+    base: "/",
+    site: "https://profebenja.lat",
+    build: {
+      assets: "_astro"
+    }
   }),
   output: "static",
 });
