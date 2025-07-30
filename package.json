@@ -7,7 +7,9 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "deploy": "npm run build && gh-pages -d dist",
+    "deploy:clean": "npm run build && gh-pages -d dist --clean"
   },
   "dependencies": {
     "astro": "^4.0.0"
