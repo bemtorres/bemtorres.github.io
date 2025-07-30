@@ -18,6 +18,7 @@ export interface Class {
   date: string;
   files?: number;
   materials: Material[];
+  img?: string;
 }
 
 const classes: Class[] = [
@@ -26,6 +27,7 @@ const classes: Class[] = [
     title: 'Fundamentos de bases de datos',
     description: 'Conceptos basicos y principios de las bases de datos',
     date: '2025-07-30',
+    img: 'https://bynder.aggreko.com/transform/0c3fa223-32cc-4a5c-9e1d-836942d6afd4/energia-climatizacion-empresa-data-center-006',
     materials: [
       {
         name: 'Unidad 1: Introduccion a las bases de datos y a la arquitectura de DBMS',
@@ -47,6 +49,16 @@ const classes: Class[] = [
         url: 'https://docs.google.com/presentation/d/1o2AfYhShcnFcPS1PPX7JijrNp-Ctx5hl/edit?usp=sharing&ouid=111508538317434257680&rtpof=true&sd=true'
       },
       {
+        name: '¿Que son las bases de datos?',
+        type: 'content',
+        fileType: 'youtube',
+        highlightFlow: true,
+        // password: "123456",
+        // status: 'locked',
+        // status: 'hidden',
+        url: 'https://www.youtube.com/watch?v=6S8A-1jBD5Y&ab_channel=Develoteca-OscarUh'
+      },
+      {
         name: 'Archivo de Ejercicios',
         type: 'content',
         fileType: 'xlsx',
@@ -64,23 +76,12 @@ const classes: Class[] = [
         url: 'https://example.com/hidden-file.pdf'
       },
       {
-        name: 'Presentation - Basic Concepts',
+        name: 'Subir actividad 1',
         type: 'content',
-        fileType: 'link',
-        // status: 'unlocked',
-        status: 'hidden',
-        url: 'https://www.google.com'
-      },
-      {
-        name: 'Video Tutorial - Database Basics',
-        type: 'content',
-        fileType: 'youtube',
-        highlightFlow: true,
-        // password: "123456",
-        // status: 'locked',
-        status: 'hidden',
+        fileType: 'folder',
 
-        url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+        // status: 'unlocked',
+        url: 'https://drive.google.com/drive/folders/1CcYQnnnzFdRZX4_MlHyYALCY2D49nBkR?usp=sharing'
       },
       {
         name: 'Semana 2 - 30 Julio 2025',
@@ -88,11 +89,30 @@ const classes: Class[] = [
         description: 'Click on any file to download it. All materials are organized to facilitate your study.'
       },
       {
+        name: '¿Qué es un base de datos DBMS?',
+        type: 'content',
+        fileType: 'youtube',
+        // highlightFlow: true,
+        // password: "123456",
+        // status: 'locked',
+        url: 'https://www.youtube.com/shorts/9-9UwBwXMts'
+      },
+      {
         name: 'Caso de estudio',
         type: 'content',
         fileType: 'folder',
         url: 'https://drive.google.com/drive/folders/1FOFOLtmD1wDf642-xca2XdDaoWRItG3D?usp=sharing'
       },
+      {
+        name: 'Miro - Diagrama de Entidad Relacion',
+        type: 'content',
+        fileType: 'link',
+        // size: '2.5 MB',
+        // password: "123456",
+        // status: 'locked',
+        url: 'https://miro.com/es/plantillas/diagrama-entidad-relacion/'
+      },
+     
       // {
       //   name: 'Caso de estudio',
       //   type: 'content',
