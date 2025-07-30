@@ -1,0 +1,135 @@
+export interface Material {
+  nombre: string;
+  type: string;
+  descripcion?: string;
+  tamaño?: string;
+  url?: string;
+  tipo?: string;
+  highlight?: boolean;
+}
+
+export interface Clase {
+  id: string;
+  titulo: string;
+  descripcion: string;
+  fecha: string;
+  archivos?: number;
+  materiales: Material[];
+}
+
+const clases: Clase[] = [
+  {
+    id: '2025-fundamentos-de-bases-de-datos',
+    titulo: 'Fundamentos de Bases de Datos',
+    descripcion: 'Conceptos básicos de bases de datos',
+    fecha: '2025-07-30',
+    materiales: [
+      {
+        nombre: 'Unidad 1: Introducción a las Bases de Datos y artectura de un DBMS',
+        type: 'title',
+        descripcion: 'Contenido 8 horas..'
+      },
+      {
+        nombre: 'Semana 1 - ',
+        type: 'subtitle',
+        descripcion: 'Haz clic en cualquier archivo para descargarlo. Todos los materiales están organizados para facilitar tu estudio.'
+      },
+      {
+        nombre: 'Presentación - Conceptos Básicos',
+        type: 'content',
+        tipo: 'ppt',
+        tamaño: '2.5 MB',
+        url: '/documentos/clase-1/template.xlsx'
+      },
+      {
+        nombre: 'Presentación - Conceptos Básicos',
+        type: 'content',
+        tipo: 'link',
+        url: 'https://www.google.com'
+      },
+      {
+        nombre: 'Presentación - Conceptos Básicos',
+        type: 'content',
+        highlight: true,
+        tipo: 'ppt',
+        tamaño: '2.5 MB',
+        url: '/documentos/clase-1/template.xlsx'
+      },
+      {
+        nombre: 'Semana 2',
+        type: 'title',
+        descripcion: 'Haz clic en cualquier archivo para descargarlo. Todos los materiales están organizados para facilitar tu estudio.'
+      },
+      {
+        nombre: 'Ejercicios pdf',
+        type: 'content',
+        tipo: 'pdf',
+        tamaño: '1.8 MB',
+        url: '/documentos/clase-1/template.pdf'
+      },
+      {
+        nombre: 'Guía de Estudio',
+        type: 'content',
+        tipo: 'docx',
+        tamaño: '3.2 MB',
+        url: '/documentos/clase-1/guia-estudio.docx'
+      }
+    ]
+  },
+  {
+    id: 'clase-2',
+    titulo: 'Estructuras de Datos',
+    descripcion: 'Arrays, listas, pilas y colas',
+    fecha: '2024-01-22',
+    materiales: [
+      {
+        nombre: 'Estructuras Lineales',
+        type: 'title',
+        descripcion: 'Arrays, listas enlazadas y sus implementaciones'
+      },
+      {
+        nombre: 'Teoría - Estructuras de Datos',
+        type: 'content',
+        tipo: 'pdf',
+        tamaño: '4.1 MB',
+        url: '/documentos/clase-2/teoria-estructuras.pdf'
+      },
+      {
+        nombre: 'Implementaciones en Java',
+        type: 'content',
+        tipo: 'zip',
+        tamaño: '2.3 MB',
+        url: '/documentos/clase-2/implementaciones-java.zip'
+      }
+    ]
+  },
+  {
+    id: 'clase-3',
+    titulo: 'Programación Orientada a Objetos',
+    descripcion: 'Clases, objetos, herencia y polimorfismo',
+    fecha: '2024-01-29',
+    materiales: [
+      {
+        nombre: 'Conceptos de POO',
+        type: 'title',
+        descripcion: 'Encapsulamiento, herencia y polimorfismo'
+      },
+      {
+        nombre: 'Presentación - POO',
+        type: 'content',
+        tipo: 'ppt',
+        tamaño: '5.2 MB',
+        url: '/documentos/clase-3/presentacion-poo.pptx'
+      },
+      {
+        nombre: 'Proyecto Práctico',
+        type: 'content',
+        tipo: 'zip',
+        tamaño: '8.7 MB',
+        url: '/documentos/clase-3/proyecto-practico.zip'
+      }
+    ]
+  }
+];
+
+export default clases; 

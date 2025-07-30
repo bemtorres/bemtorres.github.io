@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import clases from '../../../lib/clases';
+import clases from '../../lib/clases';
 
 ---
 
@@ -18,13 +18,14 @@ import clases from '../../../lib/clases';
         <div class="p-6">
           <div class="flex items-center justify-between mb-4">
             <h3 class="text-xl font-semibold text-gray-900">{clase.titulo}</h3>
-            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
-              {clase.archivos} archivos
-            </span>
+            {clase.archivos && (
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
+                {clase.archivos} archivos
+              </span>
+            )}
           </div>
           
           <p class="text-gray-600 mb-4">{clase.descripcion}</p>
-          
           <div class="flex items-center justify-between">
             <span class="text-sm text-gray-500">
               Fecha: {new Date(clase.fecha).toLocaleDateString('es-ES')}
