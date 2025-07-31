@@ -1,7 +1,17 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import classes from "../../lib/clases";
-import { YoutubeIcon, LinkIcon } from "../../lib/iconssvg";
+import { 
+  LinkIcon, 
+  PowerpointIcon, 
+  WordIcon, 
+  ExcelIcon, 
+  YoutubeIcon, 
+  PdfIcon,
+  GraduationIcon,
+  GameIcon,
+  DriveIcon
+} from "../../lib/iconssvg";
 
 export async function getStaticPaths() {
   // In a real project, this would come from a database or files
@@ -15,34 +25,27 @@ const { classItem } = Astro.props;
 
 function getFileIcon(fileType: string) {
   const icons: Record<string, string> = {
-    pdf: "📄",
-    ppt: "📊",
-    docx: "📝",
-    zip: "📦",
-    sql: "🗄️",
-    link: "🔗",
-    video: "🎥",
-    audio: "🎧",
-    image: "🖼️",
-    text: "📄",
-    excel: "📊",
-    word: "📝",
-    powerpoint: "📊",
-    csv: "📊",
-    txt: "📄",
-    json: "📄",
-    xml: "📄",
-    folder: "📁",
+    pdf: PdfIcon,
+    ppt: PowerpointIcon,
+    docx: WordIcon,
+    excel: ExcelIcon,
+    word: WordIcon,
+    powerpoint: PowerpointIcon,
     youtube: YoutubeIcon,
+    graduation: GraduationIcon,
+    game: GameIcon,
+    drive: DriveIcon,
   };
-  return icons[fileType] || "📄";
+  return icons[fileType] || GraduationIcon;
 }
+
+
 
 // Función para extraer el ID del video de YouTube
 function getYouTubeVideoId(url: string): string | null {
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
   const match = url.match(regExp);
-  return (match && match[2].length === 11) ? match[2] : null;
+  return match && match[2].length === 11 ? match[2] : null;
 }
 ---
 
@@ -90,7 +93,9 @@ function getYouTubeVideoId(url: string): string | null {
                 d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                 clip-rule="evenodd"></path>
             </svg>
-            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 truncate max-w-[150px] sm:max-w-none">
+            <span
+              class="ml-1 text-sm font-medium text-gray-500 md:ml-2 truncate max-w-[150px] sm:max-w-none"
+            >
               {classItem.title}
             </span>
           </div>
@@ -100,11 +105,33 @@ function getYouTubeVideoId(url: string): string | null {
   </div>
 
   <div class="bg-white rounded-lg shadow-md p-4 sm:p-6 mb-6 sm:mb-8">
-    <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-4">{classItem.title}</h1>
-    <p class="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">{classItem.description}</p>
+    <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-4">
+      {classItem.title}
+    </h1>
+
+    {
+      classItem.img && (
+        <div class="mb-4 sm:mb-6">
+          <img
+            src={classItem.img}
+            alt={`Imagen de ${classItem.title}`}
+            class="w-full h-48 sm:h-64 object-cover rounded-lg shadow-md"
+            loading="lazy"
+          />
+        </div>
+      )
+    }
+
+    <p class="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">
+      {classItem.description}
+    </p>
     <div class="flex items-center justify-between">
       <div class="flex items-center text-xs sm:text-sm text-gray-500">
-        <svg class="w-3 h-3 sm:w-4 sm:h-4 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+        <svg
+          class="w-3 h-3 sm:w-4 sm:h-4 mr-2 flex-shrink-0"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
           <path
             fill-rule="evenodd"
             d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
@@ -112,7 +139,7 @@ function getYouTubeVideoId(url: string): string | null {
         </svg>
         Date: {new Date(classItem.date).toLocaleDateString("en-US")}
       </div>
-      
+
       <!-- Botón de cambio de vista -->
       <div class="flex items-center space-x-2">
         <span class="text-xs sm:text-sm text-gray-600">Vista:</span>
@@ -122,8 +149,15 @@ function getYouTubeVideoId(url: string): string | null {
             class="view-toggle-btn px-3 py-1 text-xs sm:text-sm font-medium rounded-md transition-colors duration-200 bg-white text-gray-900 shadow-sm"
             data-view="list"
           >
-            <svg class="w-4 h-4 inline-block mr-1" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+            <svg
+              class="w-4 h-4 inline-block mr-1"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                clip-rule="evenodd"></path>
             </svg>
             Lista
           </button>
@@ -132,8 +166,14 @@ function getYouTubeVideoId(url: string): string | null {
             class="view-toggle-btn px-3 py-1 text-xs sm:text-sm font-medium rounded-md transition-colors duration-200 text-gray-600 hover:text-gray-900"
             data-view="grid"
           >
-            <svg class="w-4 h-4 inline-block mr-1" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+            <svg
+              class="w-4 h-4 inline-block mr-1"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+              ></path>
             </svg>
             Columnas
           </button>
@@ -146,58 +186,118 @@ function getYouTubeVideoId(url: string): string | null {
   <div id="materialsContainer" class="grid gap-3 sm:gap-4">
     {
       classItem.materials.map((material) => {
-          // Filtrar materiales ocultos
-          if (material.status === "hidden") {
-            return null;
-          }
-          
-          if (material.type === "title") {
-            return (
-              <div class="title-item mb-3 text-center">
-                <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">{material.name}</h2>
-                {material.description && <p class="text-gray-600 text-sm sm:text-base">{material.description}</p>}
-              </div>
-            );
+        // Filtrar materiales ocultos
+        if (material.status === "hidden") {
+          return null;
+        }
+
+        if (material.type === "title") {
+          return (
+            <div class="title-item mb-3 text-center">
+              <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">
+                {material.name}
+              </h2>
+              {material.description && (
+                <p class="text-gray-600 text-sm sm:text-base">
+                  {material.description}
+                </p>
+              )}
+            </div>
+          );
         } else if (material.type === "subtitle") {
           return (
             <div class="subtitle-item mb-3">
-              <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-2">{material.name}</h3>
-              {material.description && <p class="text-gray-600 text-sm sm:text-base">{material.description}</p>}
+              <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-2">
+                {material.name}
+              </h3>
+              {material.description && (
+                <p class="text-gray-600 text-sm sm:text-base">
+                  {material.description}
+                </p>
+              )}
             </div>
           );
         } else if (material.type === "content") {
           const isYouTube = material.fileType === "youtube";
           const buttonText = isYouTube ? "Ver Video" : "Download";
-          const buttonIcon = isYouTube ? <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-  <path fill-rule="evenodd" d="M8.6 5.2A1 1 0 0 0 7 6v12a1 1 0 0 0 1.6.8l8-6a1 1 0 0 0 0-1.6l-8-6Z" clip-rule="evenodd"/>
-</svg>
- : <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 15v2a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-2m-8 1V4m0 12-4-4m4 4 4-4"/>
-</svg>
-;
-                     const hasPassword = material.password && material.password.length > 0;
-           const isLocked = material.status === "locked";
-           const isUnlocked = material.status === "unlocked" || !material.status;
-           const hasHighlightFlow = material.highlightFlow === true;
-          
+          const buttonIcon = isYouTube ? (
+            <svg
+              class="w-6 h-6 text-gray-800 dark:text-white"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8.6 5.2A1 1 0 0 0 7 6v12a1 1 0 0 0 1.6.8l8-6a1 1 0 0 0 0-1.6l-8-6Z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          ) : (
+            <svg
+              class="w-6 h-6 text-gray-800 dark:text-white"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 15v2a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-2m-8 1V4m0 12-4-4m4 4 4-4"
+              />
+            </svg>
+          );
+          const hasPassword = material.password && material.password.length > 0;
+          const isLocked = material.status === "locked";
+          const isUnlocked = material.status === "unlocked" || !material.status;
+          const hasHighlightFlow = material.highlightFlow === true;
+
           return (
-                         <div 
-               class:list={[
-                 hasHighlightFlow ? "highlight-flow" : material.highlight ? "border-4 border-yellow-400" : "border border-gray-200",
-                 isLocked ? "opacity-60 bg-gray-50 border-gray-300" : "bg-white",
-                 isUnlocked && !material.highlight && !hasHighlightFlow ? "hover:border-primary-300 hover:shadow-md" : ""
-               ]}
-               class="material-item mx-2 sm:mx-6 rounded-lg p-3 sm:p-4 transition-all duration-200">
+            <div
+              class:list={[
+                hasHighlightFlow
+                  ? "highlight-flow"
+                  : material.highlight
+                    ? "border-4 border-yellow-400"
+                    : "border border-gray-200",
+                isLocked ? "opacity-60 bg-gray-50 border-gray-300" : "bg-white",
+                isUnlocked && !material.highlight && !hasHighlightFlow
+                  ? "hover:border-primary-300 hover:shadow-md"
+                  : "",
+              ]}
+              class="material-item mx-2 sm:mx-6 rounded-lg p-3 sm:p-4 transition-all duration-200"
+            >
               <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
                 <div class="flex items-center space-x-3 sm:space-x-4 min-w-0 flex-1">
-                  {material.fileType === "youtube" && <div class="text-2xl sm:text-3xl flex-shrink-0 text-red-500" set:html={YoutubeIcon}></div>}
-                  {material.fileType !== "youtube" && <div class="text-2xl sm:text-3xl flex-shrink-0">{getFileIcon(material.fileType || '')}</div>}
+                  <div class="text-2xl sm:text-3xl flex-shrink-0">
+                    <img 
+                      src={getFileIcon(material.icon || material.fileType || "")} 
+                      alt={`${material.icon} icon`}
+                      class="w-8 h-8 sm:w-10 sm:h-10"
+                    />
+                  </div>
                   <div class="min-w-0 flex-1">
-                    <h3 class="text-base sm:text-lg font-medium text-gray-900 truncate">{material.name}</h3>
+                    <h3 class="text-base sm:text-lg font-medium text-gray-900 truncate">
+                      {material.name}
+                    </h3>
                     <p class="text-xs sm:text-sm text-gray-500">
                       {/* Type: {material.fileType?.toUpperCase()} {material.size ? `• Size: ${material.size}` : ""} */}
-                      {hasPassword && <span class="ml-2 text-orange-600">🔒 Protegido con contraseña</span>}
-                      {isLocked && <span class="ml-2 text-gray-500">🔒 Bloqueado</span>}
+                      {hasPassword && (
+                        <span class="ml-2 text-orange-600">
+                          🔒 Protegido con contraseña
+                        </span>
+                      )}
+                      {isLocked && (
+                        <span class="ml-2 text-gray-500">🔒 Bloqueado</span>
+                      )}
                       {/* {isUnlocked && <span class="ml-2 text-green-600">✅ Disponible</span>} */}
                     </p>
                   </div>
@@ -213,64 +313,90 @@ function getYouTubeVideoId(url: string): string | null {
                   </button>
                 ) : isYouTube ? (
                   hasPassword ? (
-                                         <button
-                       data-material-url={material.url}
-                       data-material-password={material.password}
-                       data-material-name={material.name}
-                       data-material-file-type={material.fileType}
-                       data-is-youtube="true"
-                       class:list={[
-                         hasHighlightFlow ? "highlight-flow-btn" : material.highlight ? "bg-yellow-500 focus:ring-yellow-500 focus:ring-offset-yellow-500" : "bg-red-600 focus:ring-red-500 focus:ring-offset-red-500 hover:bg-red-700"
-                       ]}
-                       class="password-modal-btn inline-flex items-center justify-center px-3 sm:px-4 py-2 border border-transparent text-xs sm:text-sm font-medium rounded-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors w-full sm:w-auto"
-                     >
+                    <button
+                      data-material-url={material.url}
+                      data-material-password={material.password}
+                      data-material-name={material.name}
+                      data-material-file-type={material.fileType}
+                      data-is-youtube="true"
+                      class:list={[
+                        hasHighlightFlow
+                          ? "highlight-flow-btn"
+                          : material.highlight
+                            ? "bg-yellow-500 focus:ring-yellow-500 focus:ring-offset-yellow-500"
+                            : "bg-red-600 focus:ring-red-500 focus:ring-offset-red-500 hover:bg-red-700",
+                      ]}
+                      class="password-modal-btn inline-flex items-center justify-center px-3 sm:px-4 py-2 border border-transparent text-xs sm:text-sm font-medium rounded-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors w-full sm:w-auto"
+                    >
                       <span class="mr-1 sm:mr-2">🔒</span>
                       Acceder
                     </button>
                   ) : (
-                                         <button
-                       data-youtube-url={material.url}
-                       class:list={[
-                         hasHighlightFlow ? "highlight-flow-btn" : material.highlight ? "bg-yellow-500 focus:ring-yellow-500 focus:ring-offset-yellow-500" : "bg-red-600 focus:ring-red-500 focus:ring-offset-red-500 hover:bg-red-700"
-                       ]}
-                       class="youtube-modal-btn inline-flex items-center justify-center px-3 sm:px-4 py-2 border border-transparent text-xs sm:text-sm font-medium rounded-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors w-full sm:w-auto"
-                     >
+                    <button
+                      data-youtube-url={material.url}
+                      class:list={[
+                        hasHighlightFlow
+                          ? "highlight-flow-btn"
+                          : material.highlight
+                            ? "bg-yellow-500 focus:ring-yellow-500 focus:ring-offset-yellow-500"
+                            : "bg-red-600 focus:ring-red-500 focus:ring-offset-red-500 hover:bg-red-700",
+                      ]}
+                      class="youtube-modal-btn inline-flex items-center justify-center px-3 sm:px-4 py-2 border border-transparent text-xs sm:text-sm font-medium rounded-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors w-full sm:w-auto"
+                    >
                       <span class="mr-1 sm:mr-2">{buttonIcon}</span>
                       {buttonText}
                     </button>
                   )
                 ) : hasPassword ? (
-                                     <button
-                     data-material-url={material.url}
-                     data-material-password={material.password}
-                     data-material-name={material.name}
-                     data-material-file-type={material.fileType}
-                     class:list={[
-                       hasHighlightFlow ? "highlight-flow-btn" : material.highlight ? "bg-yellow-500 focus:ring-yellow-500 focus:ring-offset-yellow-500" : "bg-primary-600 focus:ring-primary-500 focus:ring-offset-primary-500 hover:bg-primary-700"
-                     ]}
-                     class="password-modal-btn inline-flex items-center justify-center px-3 sm:px-4 py-2 border border-transparent text-xs sm:text-sm font-medium rounded-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors w-full sm:w-auto"
-                   >
+                  <button
+                    data-material-url={material.url}
+                    data-material-password={material.password}
+                    data-material-name={material.name}
+                    data-material-file-type={material.fileType}
+                    class:list={[
+                      hasHighlightFlow
+                        ? "highlight-flow-btn"
+                        : material.highlight
+                          ? "bg-yellow-500 focus:ring-yellow-500 focus:ring-offset-yellow-500"
+                          : "bg-primary-600 focus:ring-primary-500 focus:ring-offset-primary-500 hover:bg-primary-700",
+                    ]}
+                    class="password-modal-btn inline-flex items-center justify-center px-3 sm:px-4 py-2 border border-transparent text-xs sm:text-sm font-medium rounded-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors w-full sm:w-auto"
+                  >
                     <span class="mr-1 sm:mr-2">🔒</span>
                     Acceder
                   </button>
                 ) : (
-                                     <a
-                     href={material.url}
-                     target={material.url?.includes("http") ? "_blank" : "_self"}
-                     download
-                     class:list={[
-                       hasHighlightFlow ? "highlight-flow-btn" : material.highlight ? "bg-yellow-500 focus:ring-yellow-500 focus:ring-offset-yellow-500" : "bg-primary-600 focus:ring-primary-500 focus:ring-offset-primary-500 hover:bg-primary-700"
-                     ]}
-                     class="inline-flex items-center justify-center px-3 sm:px-4 py-2 border border-transparent text-xs sm:text-sm font-medium rounded-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors w-full sm:w-auto"
-                   >
-                    {material.url?.includes("http") ? '' : <svg class="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path
-                        fill-rule="evenodd"
-                        d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>}
-                    {material.url?.includes("http") ? "Ir a la página" : buttonText}
+                  <a
+                    href={material.url}
+                    target={material.url?.includes("http") ? "_blank" : "_self"}
+                    download
+                    class:list={[
+                      hasHighlightFlow
+                        ? "highlight-flow-btn"
+                        : material.highlight
+                          ? "bg-yellow-500 focus:ring-yellow-500 focus:ring-offset-yellow-500"
+                          : "bg-primary-600 focus:ring-primary-500 focus:ring-offset-primary-500 hover:bg-primary-700",
+                    ]}
+                    class="inline-flex items-center justify-center px-3 sm:px-4 py-2 border border-transparent text-xs sm:text-sm font-medium rounded-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors w-full sm:w-auto"
+                  >
+                    {material.url?.includes("http") ? (
+                      ""
+                    ) : (
+                      <svg
+                        class="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 flex-shrink-0"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    )}
+                    {material.url?.includes("http")
+                      ? "Ir a la página"
+                      : buttonText}
                   </a>
                 )}
               </div>
@@ -283,11 +409,19 @@ function getYouTubeVideoId(url: string): string | null {
   </div>
 
   <!-- Modal de YouTube -->
-  <div id="youtubeModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden">
+  <div
+    id="youtubeModal"
+    class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4"
+  >
+    <div
+      class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden"
+    >
       <div class="flex justify-between items-center p-4 border-b">
         <h3 class="text-lg font-semibold text-gray-900">Video de YouTube</h3>
-        <button id="closeModal" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">
+        <button
+          id="closeModal"
+          class="text-gray-400 hover:text-gray-600 text-2xl font-bold"
+        >
           &times;
         </button>
       </div>
@@ -299,30 +433,44 @@ function getYouTubeVideoId(url: string): string | null {
             src=""
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
+            allowfullscreen></iframe>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Modal de Contraseña -->
-  <div id="passwordModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+  <div
+    id="passwordModal"
+    class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4"
+  >
     <div class="bg-white rounded-lg max-w-md w-full">
       <div class="flex justify-between items-center p-4 border-b">
         <h3 class="text-lg font-semibold text-gray-900">🔒 Acceso Protegido</h3>
-        <button id="closePasswordModal" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">
+        <button
+          id="closePasswordModal"
+          class="text-gray-400 hover:text-gray-600 text-2xl font-bold"
+        >
           &times;
         </button>
       </div>
       <div class="p-6">
         <div class="mb-4">
-          <p class="text-sm text-gray-600 mb-2">Este material está protegido con contraseña:</p>
-          <p class="text-base font-medium text-gray-900" id="passwordMaterialName"></p>
+          <p class="text-sm text-gray-600 mb-2">
+            Este material está protegido con contraseña:
+          </p>
+          <p
+            class="text-base font-medium text-gray-900"
+            id="passwordMaterialName"
+          >
+          </p>
         </div>
         <form id="passwordForm" class="space-y-4">
           <div>
-            <label for="passwordInput" class="block text-sm font-medium text-gray-700 mb-2">
+            <label
+              for="passwordInput"
+              class="block text-sm font-medium text-gray-700 mb-2"
+            >
               Contraseña
             </label>
             <input
@@ -361,7 +509,11 @@ function getYouTubeVideoId(url: string): string | null {
       href="/clases"
       class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors w-full sm:w-auto"
     >
-      <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+      <svg
+        class="w-4 h-4 mr-2 flex-shrink-0"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+      >
         <path
           fill-rule="evenodd"
           d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
@@ -378,214 +530,246 @@ function getYouTubeVideoId(url: string): string | null {
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
       gap: 1rem !important;
     }
-    
+
     /* Solo los materiales de contenido se ven afectados por la vista de columnas */
     .grid-view .material-item {
       margin: 0 !important;
       flex-direction: column !important;
       text-align: center !important;
     }
-    
+
     .grid-view .material-item > div {
       flex-direction: column !important;
       gap: 1rem !important;
     }
-    
+
     .grid-view .material-item .flex {
       flex-direction: column !important;
       align-items: center !important;
       text-align: center !important;
     }
-    
+
     .grid-view .material-item h3 {
       text-align: center !important;
       margin-bottom: 0.5rem !important;
     }
-    
+
     .grid-view .material-item p {
       text-align: center !important;
       margin-bottom: 1rem !important;
     }
-    
+
     /* Los títulos y subtítulos mantienen su formato original en vista de columnas */
     .grid-view .title-item,
     .grid-view .subtitle-item {
       grid-column: 1 / -1 !important;
       margin: 0 !important;
     }
-    
+
     .grid-view .title-item > div,
     .grid-view .subtitle-item > div {
       flex-direction: row !important;
       text-align: center !important;
     }
-    
+
     /* Estilos para vista de lista */
     .list-view {
       display: grid !important;
       grid-template-columns: 1fr !important;
       gap: 0.75rem !important;
     }
-    
+
     .list-view .material-item {
       margin: 0 0.5rem !important;
     }
-    
+
     /* Transiciones suaves */
     .material-item {
       transition: all 0.3s ease-in-out;
     }
-    
-         #materialsContainer {
-       transition: all 0.3s ease-in-out;
-     }
-     
-     /* Efecto de borde dorado en movimiento */
-     .highlight-flow {
-       position: relative;
-       background: linear-gradient(45deg, #fbbf24, #f59e0b, #d97706, #fbbf24);
-       background-size: 400% 400%;
-       animation: gradientShift 3s ease infinite;
-       border: 3px solid transparent;
-       border-radius: 0.5rem;
-     }
-     
-     .highlight-flow::before {
-       content: '';
-       position: absolute;
-       top: 0;
-       left: 0;
-       right: 0;
-       bottom: 0;
-       background: white;
-       border-radius: 0.5rem;
-       margin: 3px;
-       z-index: 1;
-     }
-     
-     .highlight-flow > * {
-       position: relative;
-       z-index: 2;
-     }
-     
-           @keyframes gradientShift {
-        0% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
+
+    #materialsContainer {
+      transition: all 0.3s ease-in-out;
+    }
+
+    /* Efecto de borde dorado en movimiento */
+    .highlight-flow {
+      position: relative;
+      background: linear-gradient(45deg, #fbbf24, #f59e0b, #d97706, #fbbf24);
+      background-size: 400% 400%;
+      animation: gradientShift 3s ease infinite;
+      border: 3px solid transparent;
+      border-radius: 0.5rem;
+    }
+
+    .highlight-flow::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: white;
+      border-radius: 0.5rem;
+      margin: 3px;
+      z-index: 1;
+    }
+
+    .highlight-flow > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
       }
-      
-      /* Efecto de borde dorado en movimiento para botones */
-      .highlight-flow-btn {
-        position: relative;
-        background: linear-gradient(45deg, #fbbf24, #f59e0b, #d97706, #fbbf24);
-        background-size: 400% 400%;
-        animation: gradientShift 3s ease infinite;
-        border: 2px solid transparent;
-        border-radius: 0.375rem;
-        color: white;
-        font-weight: 500;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        transition: all 0.3s ease;
+      50% {
+        background-position: 100% 50%;
       }
-      
-      .highlight-flow-btn:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      100% {
+        background-position: 0% 50%;
       }
-      
-      .highlight-flow-btn:focus {
-        outline: none;
-        ring: 2px;
-        ring-offset: 2px;
-        ring-color: #f59e0b;
-      }
+    }
+
+    /* Efecto de borde dorado en movimiento para botones */
+    .highlight-flow-btn {
+      position: relative;
+      background: linear-gradient(45deg, #fbbf24, #f59e0b, #d97706, #fbbf24);
+      background-size: 400% 400%;
+      animation: gradientShift 3s ease infinite;
+      border: 2px solid transparent;
+      border-radius: 0.375rem;
+      color: white;
+      font-weight: 500;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      box-shadow:
+        0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      transition: all 0.3s ease;
+    }
+
+    .highlight-flow-btn:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    .highlight-flow-btn:focus {
+      outline: none;
+      ring: 2px;
+      ring-offset: 2px;
+      ring-color: #f59e0b;
+    }
   </style>
 
   <script>
     // Función para extraer el ID del video de YouTube
     function getYouTubeVideoId(url) {
-      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+      const regExp =
+        /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
       const match = url.match(regExp);
-      return (match && match[2].length === 11) ? match[2] : null;
+      return match && match[2].length === 11 ? match[2] : null;
     }
 
     // Elementos del modal de YouTube
-    const modal = document.getElementById('youtubeModal') as HTMLElement;
-    const iframe = document.getElementById('youtubeIframe') as HTMLIFrameElement;
-    const closeBtn = document.getElementById('closeModal') as HTMLElement;
+    const modal = document.getElementById("youtubeModal") as HTMLElement;
+    const iframe = document.getElementById(
+      "youtubeIframe",
+    ) as HTMLIFrameElement;
+    const closeBtn = document.getElementById("closeModal") as HTMLElement;
 
     // Elementos del modal de contraseña
-    const passwordModal = document.getElementById('passwordModal') as HTMLElement;
-    const passwordForm = document.getElementById('passwordForm') as HTMLFormElement;
-    const passwordInput = document.getElementById('passwordInput') as HTMLInputElement;
-    const passwordError = document.getElementById('passwordError') as HTMLElement;
-    const passwordMaterialName = document.getElementById('passwordMaterialName') as HTMLElement;
-    const closePasswordModal = document.getElementById('closePasswordModal') as HTMLElement;
-    const cancelPasswordBtn = document.getElementById('cancelPasswordBtn') as HTMLElement;
+    const passwordModal = document.getElementById(
+      "passwordModal",
+    ) as HTMLElement;
+    const passwordForm = document.getElementById(
+      "passwordForm",
+    ) as HTMLFormElement;
+    const passwordInput = document.getElementById(
+      "passwordInput",
+    ) as HTMLInputElement;
+    const passwordError = document.getElementById(
+      "passwordError",
+    ) as HTMLElement;
+    const passwordMaterialName = document.getElementById(
+      "passwordMaterialName",
+    ) as HTMLElement;
+    const closePasswordModal = document.getElementById(
+      "closePasswordModal",
+    ) as HTMLElement;
+    const cancelPasswordBtn = document.getElementById(
+      "cancelPasswordBtn",
+    ) as HTMLElement;
 
     // Elementos de cambio de vista
-    const listViewBtn = document.getElementById('listViewBtn') as HTMLElement;
-    const gridViewBtn = document.getElementById('gridViewBtn') as HTMLElement;
-    const materialsContainer = document.getElementById('materialsContainer') as HTMLElement;
+    const listViewBtn = document.getElementById("listViewBtn") as HTMLElement;
+    const gridViewBtn = document.getElementById("gridViewBtn") as HTMLElement;
+    const materialsContainer = document.getElementById(
+      "materialsContainer",
+    ) as HTMLElement;
 
     // Agregar event listeners a todos los botones de YouTube y contraseña
-    document.addEventListener('DOMContentLoaded', function() {
-        const youtubeButtons = document.querySelectorAll('.youtube-modal-btn');
-        const passwordButtons = document.querySelectorAll('.password-modal-btn');
-        
-        youtubeButtons.forEach(button => {
-          button.addEventListener('click', function() {
-            const url = this.getAttribute('data-youtube-url');
-            const videoId = getYouTubeVideoId(url);
-            
-            if (videoId && modal && iframe) {
-              iframe.src = `https://www.youtube.com/embed/${videoId}`;
-              modal.classList.remove('hidden');
-              document.body.style.overflow = 'hidden';
-            } else if (url) {
-              // Si no es una URL válida de YouTube, abrir en nueva pestaña
-              window.open(url, '_blank');
-            }
-          });
-        });
+    document.addEventListener("DOMContentLoaded", function () {
+      const youtubeButtons = document.querySelectorAll(".youtube-modal-btn");
+      const passwordButtons = document.querySelectorAll(".password-modal-btn");
 
-        // Event listeners para botones de contraseña
-        passwordButtons.forEach(button => {
-          button.addEventListener('click', function() {
-            const url = this.getAttribute('data-material-url');
-            const password = this.getAttribute('data-material-password');
-            const name = this.getAttribute('data-material-name');
-            const fileType = this.getAttribute('data-material-file-type');
-            const isYouTube = this.getAttribute('data-is-youtube') === 'true';
-            
-            if (passwordModal && passwordMaterialName) {
-              passwordMaterialName.textContent = name;
-              passwordModal.setAttribute('data-material-url', url || '');
-              passwordModal.setAttribute('data-material-password', password || '');
-              passwordModal.setAttribute('data-material-file-type', fileType || '');
-              passwordModal.setAttribute('data-is-youtube', isYouTube ? 'true' : 'false');
-              passwordModal.classList.remove('hidden');
-              document.body.style.overflow = 'hidden';
-              passwordInput.focus();
-            }
-          });
+      youtubeButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+          const url = this.getAttribute("data-youtube-url");
+          const videoId = getYouTubeVideoId(url);
+
+          if (videoId && modal && iframe) {
+            iframe.src = `https://www.youtube.com/embed/${videoId}`;
+            modal.classList.remove("hidden");
+            document.body.style.overflow = "hidden";
+          } else if (url) {
+            // Si no es una URL válida de YouTube, abrir en nueva pestaña
+            window.open(url, "_blank");
+          }
         });
+      });
+
+      // Event listeners para botones de contraseña
+      passwordButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+          const url = this.getAttribute("data-material-url");
+          const password = this.getAttribute("data-material-password");
+          const name = this.getAttribute("data-material-name");
+          const fileType = this.getAttribute("data-material-file-type");
+          const isYouTube = this.getAttribute("data-is-youtube") === "true";
+
+          if (passwordModal && passwordMaterialName) {
+            passwordMaterialName.textContent = name;
+            passwordModal.setAttribute("data-material-url", url || "");
+            passwordModal.setAttribute(
+              "data-material-password",
+              password || "",
+            );
+            passwordModal.setAttribute(
+              "data-material-file-type",
+              fileType || "",
+            );
+            passwordModal.setAttribute(
+              "data-is-youtube",
+              isYouTube ? "true" : "false",
+            );
+            passwordModal.classList.remove("hidden");
+            document.body.style.overflow = "hidden";
+            passwordInput.focus();
+          }
+        });
+      });
 
       // Cerrar modal de YouTube
       if (closeBtn) {
-        closeBtn.addEventListener('click', closeModal);
+        closeBtn.addEventListener("click", closeModal);
       }
-      
+
       // Cerrar modal de YouTube al hacer clic fuera de él
       if (modal) {
-        modal.addEventListener('click', function(e) {
+        modal.addEventListener("click", function (e) {
           if (e.target === modal) {
             closeModal();
           }
@@ -594,20 +778,20 @@ function getYouTubeVideoId(url: string): string | null {
 
       // Cerrar modal de contraseña
       if (closePasswordModal) {
-        closePasswordModal.addEventListener('click', function() {
+        closePasswordModal.addEventListener("click", function () {
           closePasswordModalFunc();
         });
       }
 
       if (cancelPasswordBtn) {
-        cancelPasswordBtn.addEventListener('click', function() {
+        cancelPasswordBtn.addEventListener("click", function () {
           closePasswordModalFunc();
         });
       }
 
       // Cerrar modal de contraseña al hacer clic fuera de él
       if (passwordModal) {
-        passwordModal.addEventListener('click', function(e) {
+        passwordModal.addEventListener("click", function (e) {
           if (e.target === passwordModal) {
             closePasswordModalFunc();
           }
@@ -616,63 +800,68 @@ function getYouTubeVideoId(url: string): string | null {
 
       // Manejar formulario de contraseña
       if (passwordForm) {
-        passwordForm.addEventListener('submit', function(e) {
+        passwordForm.addEventListener("submit", function (e) {
           e.preventDefault();
           const inputPassword = passwordInput.value;
-          const correctPassword = passwordModal.getAttribute('data-material-password');
-          const materialUrl = passwordModal.getAttribute('data-material-url');
-          const materialFileType = passwordModal.getAttribute('data-material-file-type');
+          const correctPassword = passwordModal.getAttribute(
+            "data-material-password",
+          );
+          const materialUrl = passwordModal.getAttribute("data-material-url");
+          const materialFileType = passwordModal.getAttribute(
+            "data-material-file-type",
+          );
 
           if (inputPassword === correctPassword) {
             // Contraseña correcta, acceder al material
             closePasswordModalFunc();
-            passwordInput.value = '';
-            passwordError.classList.add('hidden');
-            
+            passwordInput.value = "";
+            passwordError.classList.add("hidden");
+
             // Verificar si es YouTube
-            const isYouTube = passwordModal.getAttribute('data-is-youtube') === 'true';
-            
+            const isYouTube =
+              passwordModal.getAttribute("data-is-youtube") === "true";
+
             if (isYouTube) {
               // Para YouTube, abrir el modal de YouTube
               const videoId = getYouTubeVideoId(materialUrl);
               if (videoId && modal && iframe) {
                 iframe.src = `https://www.youtube.com/embed/${videoId}`;
-                modal.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
+                modal.classList.remove("hidden");
+                document.body.style.overflow = "hidden";
               } else if (materialUrl) {
                 // Si no es una URL válida de YouTube, abrir en nueva pestaña
-                window.open(materialUrl, '_blank');
+                window.open(materialUrl, "_blank");
               }
             } else {
               // Para otros materiales, abrir normalmente
               if (materialUrl) {
-                if (materialUrl.includes('http')) {
-                  window.open(materialUrl, '_blank');
+                if (materialUrl.includes("http")) {
+                  window.open(materialUrl, "_blank");
                 } else {
                   // Para archivos locales, crear un enlace temporal y hacer clic
-                  const tempLink = document.createElement('a');
+                  const tempLink = document.createElement("a");
                   tempLink.href = materialUrl;
-                  tempLink.download = '';
+                  tempLink.download = "";
                   tempLink.click();
                 }
               }
             }
           } else {
             // Contraseña incorrecta
-            passwordError.classList.remove('hidden');
-            passwordInput.value = '';
+            passwordError.classList.remove("hidden");
+            passwordInput.value = "";
             passwordInput.focus();
           }
         });
       }
 
       // Cerrar modales con la tecla Escape
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-          if (modal && !modal.classList.contains('hidden')) {
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          if (modal && !modal.classList.contains("hidden")) {
             closeModal();
           }
-          if (passwordModal && !passwordModal.classList.contains('hidden')) {
+          if (passwordModal && !passwordModal.classList.contains("hidden")) {
             closePasswordModalFunc();
           }
         }
@@ -681,27 +870,27 @@ function getYouTubeVideoId(url: string): string | null {
       // Funcionalidad de cambio de vista
       if (listViewBtn && gridViewBtn && materialsContainer) {
         // Vista por defecto (lista)
-        setActiveView('list');
+        setActiveView("list");
 
-        listViewBtn.addEventListener('click', () => setActiveView('list'));
-        gridViewBtn.addEventListener('click', () => setActiveView('grid'));
+        listViewBtn.addEventListener("click", () => setActiveView("list"));
+        gridViewBtn.addEventListener("click", () => setActiveView("grid"));
       }
     });
 
     function closeModal() {
       if (modal && iframe) {
-        modal.classList.add('hidden');
-        iframe.src = '';
-        document.body.style.overflow = 'auto';
+        modal.classList.add("hidden");
+        iframe.src = "";
+        document.body.style.overflow = "auto";
       }
     }
 
     function closePasswordModalFunc() {
       if (passwordModal && passwordInput && passwordError) {
-        passwordModal.classList.add('hidden');
-        passwordInput.value = '';
-        passwordError.classList.add('hidden');
-        document.body.style.overflow = 'auto';
+        passwordModal.classList.add("hidden");
+        passwordInput.value = "";
+        passwordError.classList.add("hidden");
+        document.body.style.overflow = "auto";
       }
     }
 
@@ -709,38 +898,37 @@ function getYouTubeVideoId(url: string): string | null {
       if (!materialsContainer || !listViewBtn || !gridViewBtn) return;
 
       // Remover clases activas de ambos botones
-      listViewBtn.classList.remove('bg-white', 'text-gray-900', 'shadow-sm');
-      listViewBtn.classList.add('text-gray-600', 'hover:text-gray-900');
-      
-      gridViewBtn.classList.remove('bg-white', 'text-gray-900', 'shadow-sm');
-      gridViewBtn.classList.add('text-gray-600', 'hover:text-gray-900');
+      listViewBtn.classList.remove("bg-white", "text-gray-900", "shadow-sm");
+      listViewBtn.classList.add("text-gray-600", "hover:text-gray-900");
+
+      gridViewBtn.classList.remove("bg-white", "text-gray-900", "shadow-sm");
+      gridViewBtn.classList.add("text-gray-600", "hover:text-gray-900");
 
       // Remover clases de vista del contenedor
-      materialsContainer.classList.remove('grid-view', 'list-view');
+      materialsContainer.classList.remove("grid-view", "list-view");
 
-      if (view === 'grid') {
+      if (view === "grid") {
         // Activar vista de columnas
-        materialsContainer.classList.add('grid-view');
-        gridViewBtn.classList.remove('text-gray-600', 'hover:text-gray-900');
-        gridViewBtn.classList.add('bg-white', 'text-gray-900', 'shadow-sm');
+        materialsContainer.classList.add("grid-view");
+        gridViewBtn.classList.remove("text-gray-600", "hover:text-gray-900");
+        gridViewBtn.classList.add("bg-white", "text-gray-900", "shadow-sm");
       } else {
         // Activar vista de lista
-        materialsContainer.classList.add('list-view');
-        listViewBtn.classList.remove('text-gray-600', 'hover:text-gray-900');
-        listViewBtn.classList.add('bg-white', 'text-gray-900', 'shadow-sm');
+        materialsContainer.classList.add("list-view");
+        listViewBtn.classList.remove("text-gray-600", "hover:text-gray-900");
+        listViewBtn.classList.add("bg-white", "text-gray-900", "shadow-sm");
       }
 
       // Guardar preferencia en localStorage
-      localStorage.setItem('preferredView', view);
+      localStorage.setItem("preferredView", view);
     }
 
     // Cargar preferencia guardada al cargar la página
-    document.addEventListener('DOMContentLoaded', function() {
-      const savedView = localStorage.getItem('preferredView');
-      if (savedView && (savedView === 'list' || savedView === 'grid')) {
+    document.addEventListener("DOMContentLoaded", function () {
+      const savedView = localStorage.getItem("preferredView");
+      if (savedView && (savedView === "list" || savedView === "grid")) {
         setActiveView(savedView);
       }
     });
   </script>
 </Layout>
-

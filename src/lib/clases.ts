@@ -3,6 +3,7 @@ export interface Material {
   type: string;
   description?: string;
   size?: string;
+  icon?: string;
   url?: string;
   password?: string;
   fileType?: string;
@@ -27,7 +28,7 @@ const classes: Class[] = [
     title: 'Fundamentos de bases de datos',
     description: 'Conceptos basicos y principios de las bases de datos',
     date: '2025-07-30',
-    img: 'https://bynder.aggreko.com/transform/0c3fa223-32cc-4a5c-9e1d-836942d6afd4/energia-climatizacion-empresa-data-center-006',
+    img: 'https://images.pexels.com/photos/1181316/pexels-photo-1181316.jpeg',
     materials: [
       {
         name: 'Unidad 1: Introduccion a las bases de datos y a la arquitectura de DBMS',
@@ -40,28 +41,31 @@ const classes: Class[] = [
         description: 'Click on any file to download it. All materials are organized to facilitate your study.'
       },
       {
-        name: 'Presentacion - Conceptos Basicos',
+        name: 'Presentación 1 - Conceptos Basicos',
         type: 'content',
-        fileType: 'ppt',
+        fileType: 'pdf',
+        icon: 'pdf',
         // size: '2.5 MB',
         // password: "123456",
         // status: 'locked',
-        url: 'https://docs.google.com/presentation/d/1o2AfYhShcnFcPS1PPX7JijrNp-Ctx5hl/edit?usp=sharing&ouid=111508538317434257680&rtpof=true&sd=true'
+        url: 'https://drive.google.com/file/d/1TvrdOTX8USUihE9mFA_1COBtZs0njC53/view?usp=sharing'
       },
       {
         name: '¿Que son las bases de datos?',
         type: 'content',
         fileType: 'youtube',
-        highlightFlow: true,
+        icon: 'youtube',
+        // highlightFlow: true,
         // password: "123456",
         // status: 'locked',
         // status: 'hidden',
         url: 'https://www.youtube.com/watch?v=6S8A-1jBD5Y&ab_channel=Develoteca-OscarUh'
       },
       {
-        name: 'Archivo de Ejercicios',
+        name: 'Ejemplo de recolectar información',
         type: 'content',
         fileType: 'xlsx',
+        icon: 'excel',
         // size: '2.5 MB',
         // password: "123456",
         // status: 'locked',
@@ -79,7 +83,9 @@ const classes: Class[] = [
         name: 'Subir actividad 1',
         type: 'content',
         fileType: 'folder',
-
+        password: 'profe2025',
+        highlightFlow: true,
+        icon: 'test',
         // status: 'unlocked',
         url: 'https://drive.google.com/drive/folders/1CcYQnnnzFdRZX4_MlHyYALCY2D49nBkR?usp=sharing'
       },
@@ -87,6 +93,13 @@ const classes: Class[] = [
         name: 'Semana 2 - 30 Julio 2025',
         type: 'subtitle',
         description: 'Click on any file to download it. All materials are organized to facilitate your study.'
+      },
+      {
+        name: 'Presentación 2 - Conceptos DBMS',
+        type: 'content',
+        fileType: 'pdf',
+        icon: 'pdf',
+        url: 'https://drive.google.com/drive/folders/1FOFOLtmD1wDf642-xca2XdDaoWRItG3D?usp=sharing'
       },
       {
         name: '¿Qué es un base de datos DBMS?',
@@ -101,6 +114,7 @@ const classes: Class[] = [
         name: 'Caso de estudio',
         type: 'content',
         fileType: 'folder',
+        icon: 'drive',
         url: 'https://drive.google.com/drive/folders/1FOFOLtmD1wDf642-xca2XdDaoWRItG3D?usp=sharing'
       },
       {
@@ -112,7 +126,6 @@ const classes: Class[] = [
         // status: 'locked',
         url: 'https://miro.com/es/plantillas/diagrama-entidad-relacion/'
       },
-     
       // {
       //   name: 'Caso de estudio',
       //   type: 'content',

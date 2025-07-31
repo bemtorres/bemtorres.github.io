@@ -16,6 +16,16 @@ import classes from '../../lib/clases';
     {classes.map((classItem) => (
       <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
         <div class="p-4 sm:p-6">
+          {classItem.img && (
+            <div class="mb-4 sm:mb-6">
+              <img 
+                src={classItem.img} 
+                alt={`Imagen de ${classItem.title}`}
+                class="w-full h-30 sm:h-40 object-cover rounded-lg shadow-md"
+                loading="lazy"
+              />
+            </div>
+          )}
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 sm:mb-4 gap-2 sm:gap-0">
             <h3 class="text-lg sm:text-xl font-semibold text-gray-900">{classItem.title}</h3>
             {classItem.files && (
