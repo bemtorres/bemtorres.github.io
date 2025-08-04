@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import BlogPreview from '../components/BlogPreview.astro';
 ---
 
 <Layout title="Documentation System - Home">
@@ -41,4 +42,7 @@ import Layout from '../layouts/Layout.astro';
       </a>
     </div>
   </div>
+
+  <!-- Blog Preview Section -->
+  <BlogPreview limit={3} />
 </Layout> 

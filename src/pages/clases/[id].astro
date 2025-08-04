@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import classes from "../../lib/clases";
+import DocumentDisplay from "../../components/DocumentDisplay.astro";
 import { 
   LinkIcon, 
   PowerpointIcon, 
@@ -217,7 +218,16 @@ function getYouTubeVideoId(url: string): string | null {
               )}
             </div>
           );
-        } else if (material.type === "content") {
+        } else if (material.type === "content" || material.type === "document") {
+          // Si es un documento con showContent 'details' o 'inline', renderizar de manera especial
+          if (material.type === "document" && (material.showContent === "details" || material.showContent === "inline")) {
+            return (
+              <div class="document-content-item w-full">
+                <DocumentDisplay material={material} classId={classItem.id} />
+              </div>
+            );
+          }
+
           const isYouTube = material.fileType === "youtube";
           const buttonText = isYouTube ? "Ver Video" : "Download";
           const buttonIcon = isYouTube ? (
@@ -259,12 +269,13 @@ function getYouTubeVideoId(url: string): string | null {
           const isLocked = material.status === "locked";
           const isUnlocked = material.status === "unlocked" || !material.status;
           const hasHighlightFlow = material.highlightFlow === true;
+          const highlightColor = material.highlightColor || 'Gold';
 
           return (
             <div
               class:list={[
                 hasHighlightFlow
-                  ? "highlight-flow"
+                  ? `highlight-flow-${highlightColor.toLowerCase()}`
                   : material.highlight
                     ? "border-4 border-yellow-400"
                     : "border border-gray-200",
@@ -321,7 +332,7 @@ function getYouTubeVideoId(url: string): string | null {
                       data-is-youtube="true"
                       class:list={[
                         hasHighlightFlow
-                          ? "highlight-flow-btn"
+                          ? `highlight-flow-btn-${highlightColor.toLowerCase()}`
                           : material.highlight
                             ? "bg-yellow-500 focus:ring-yellow-500 focus:ring-offset-yellow-500"
                             : "bg-red-600 focus:ring-red-500 focus:ring-offset-red-500 hover:bg-red-700",
@@ -336,7 +347,7 @@ function getYouTubeVideoId(url: string): string | null {
                       data-youtube-url={material.url}
                       class:list={[
                         hasHighlightFlow
-                          ? "highlight-flow-btn"
+                          ? `highlight-flow-btn-${highlightColor.toLowerCase()}`
                           : material.highlight
                             ? "bg-yellow-500 focus:ring-yellow-500 focus:ring-offset-yellow-500"
                             : "bg-red-600 focus:ring-red-500 focus:ring-offset-red-500 hover:bg-red-700",
@@ -347,6 +358,8 @@ function getYouTubeVideoId(url: string): string | null {
                       {buttonText}
                     </button>
                   )
+                ) : material.type === "document" ? (
+                  <DocumentDisplay material={material} classId={classItem.id} />
                 ) : hasPassword ? (
                   <button
                     data-material-url={material.url}
@@ -355,7 +368,7 @@ function getYouTubeVideoId(url: string): string | null {
                     data-material-file-type={material.fileType}
                     class:list={[
                       hasHighlightFlow
-                        ? "highlight-flow-btn"
+                        ? `highlight-flow-btn-${highlightColor.toLowerCase()}`
                         : material.highlight
                           ? "bg-yellow-500 focus:ring-yellow-500 focus:ring-offset-yellow-500"
                           : "bg-primary-600 focus:ring-primary-500 focus:ring-offset-primary-500 hover:bg-primary-700",
@@ -372,7 +385,7 @@ function getYouTubeVideoId(url: string): string | null {
                     download
                     class:list={[
                       hasHighlightFlow
-                        ? "highlight-flow-btn"
+                        ? `highlight-flow-btn-${highlightColor.toLowerCase()}`
                         : material.highlight
                           ? "bg-yellow-500 focus:ring-yellow-500 focus:ring-offset-yellow-500"
                           : "bg-primary-600 focus:ring-primary-500 focus:ring-offset-primary-500 hover:bg-primary-700",
@@ -572,6 +585,19 @@ function getYouTubeVideoId(url: string): string | null {
       text-align: center !important;
     }
 
+    /* Los documentos con contenido (details/inline) siempre se muestran en formato de filas */
+    .document-content-item {
+      grid-column: 1 / -1 !important;
+      margin: 0 !important;
+      width: 100% !important;
+    }
+
+    .document-content-item details,
+    .document-content-item .mt-4 {
+      margin: 0 !important;
+      width: 100% !important;
+    }
+
     /* Estilos para vista de lista */
     .list-view {
       display: grid !important;
@@ -592,8 +618,10 @@ function getYouTubeVideoId(url: string): string | null {
       transition: all 0.3s ease-in-out;
     }
 
-    /* Efecto de borde dorado en movimiento */
-    .highlight-flow {
+    /* Efectos de borde en movimiento para diferentes colores */
+    
+    /* Gold (por defecto) */
+    .highlight-flow-gold {
       position: relative;
       background: linear-gradient(45deg, #fbbf24, #f59e0b, #d97706, #fbbf24);
       background-size: 400% 400%;
@@ -602,7 +630,7 @@ function getYouTubeVideoId(url: string): string | null {
       border-radius: 0.5rem;
     }
 
-    .highlight-flow::before {
+    .highlight-flow-gold::before {
       content: "";
       position: absolute;
       top: 0;
@@ -615,7 +643,91 @@ function getYouTubeVideoId(url: string): string | null {
       z-index: 1;
     }
 
-    .highlight-flow > * {
+    .highlight-flow-gold > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Diamant */
+    .highlight-flow-diamant {
+      position: relative;
+      background: linear-gradient(45deg, #a855f7, #7c3aed, #5b21b6, #a855f7);
+      background-size: 400% 400%;
+      animation: gradientShift 3s ease infinite;
+      border: 3px solid transparent;
+      border-radius: 0.5rem;
+    }
+
+    .highlight-flow-diamant::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: white;
+      border-radius: 0.5rem;
+      margin: 3px;
+      z-index: 1;
+    }
+
+    .highlight-flow-diamant > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Esmeralda */
+    .highlight-flow-esmeralda {
+      position: relative;
+      background: linear-gradient(45deg, #10b981, #059669, #047857, #10b981);
+      background-size: 400% 400%;
+      animation: gradientShift 3s ease infinite;
+      border: 3px solid transparent;
+      border-radius: 0.5rem;
+    }
+
+    .highlight-flow-esmeralda::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: white;
+      border-radius: 0.5rem;
+      margin: 3px;
+      z-index: 1;
+    }
+
+    .highlight-flow-esmeralda > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Platinum */
+    .highlight-flow-platinum {
+      position: relative;
+      background: linear-gradient(45deg, #6b7280, #4b5563, #374151, #6b7280);
+      background-size: 400% 400%;
+      animation: gradientShift 3s ease infinite;
+      border: 3px solid transparent;
+      border-radius: 0.5rem;
+    }
+
+    .highlight-flow-platinum::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: white;
+      border-radius: 0.5rem;
+      margin: 3px;
+      z-index: 1;
+    }
+
+    .highlight-flow-platinum > * {
       position: relative;
       z-index: 2;
     }
@@ -632,8 +744,10 @@ function getYouTubeVideoId(url: string): string | null {
       }
     }
 
-    /* Efecto de borde dorado en movimiento para botones */
-    .highlight-flow-btn {
+    /* Botones con efectos de borde en movimiento para diferentes colores */
+    
+    /* Gold (por defecto) */
+    .highlight-flow-btn-gold {
       position: relative;
       background: linear-gradient(45deg, #fbbf24, #f59e0b, #d97706, #fbbf24);
       background-size: 400% 400%;
@@ -649,18 +763,111 @@ function getYouTubeVideoId(url: string): string | null {
       transition: all 0.3s ease;
     }
 
-    .highlight-flow-btn:hover {
+    .highlight-flow-btn-gold:hover {
       transform: translateY(-1px);
       box-shadow:
         0 10px 15px -3px rgba(0, 0, 0, 0.1),
         0 4px 6px -2px rgba(0, 0, 0, 0.05);
     }
 
-    .highlight-flow-btn:focus {
+    .highlight-flow-btn-gold:focus {
       outline: none;
       ring: 2px;
       ring-offset: 2px;
       ring-color: #f59e0b;
+    }
+
+    /* Diamant */
+    .highlight-flow-btn-diamant {
+      position: relative;
+      background: linear-gradient(45deg, #a855f7, #7c3aed, #5b21b6, #a855f7);
+      background-size: 400% 400%;
+      animation: gradientShift 3s ease infinite;
+      border: 2px solid transparent;
+      border-radius: 0.375rem;
+      color: white;
+      font-weight: 500;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      box-shadow:
+        0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      transition: all 0.3s ease;
+    }
+
+    .highlight-flow-btn-diamant:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    .highlight-flow-btn-diamant:focus {
+      outline: none;
+      ring: 2px;
+      ring-offset: 2px;
+      ring-color: #7c3aed;
+    }
+
+    /* Esmeralda */
+    .highlight-flow-btn-esmeralda {
+      position: relative;
+      background: linear-gradient(45deg, #10b981, #059669, #047857, #10b981);
+      background-size: 400% 400%;
+      animation: gradientShift 3s ease infinite;
+      border: 2px solid transparent;
+      border-radius: 0.375rem;
+      color: white;
+      font-weight: 500;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      box-shadow:
+        0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      transition: all 0.3s ease;
+    }
+
+    .highlight-flow-btn-esmeralda:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    .highlight-flow-btn-esmeralda:focus {
+      outline: none;
+      ring: 2px;
+      ring-offset: 2px;
+      ring-color: #059669;
+    }
+
+    /* Platinum */
+    .highlight-flow-btn-platinum {
+      position: relative;
+      background: linear-gradient(45deg, #6b7280, #4b5563, #374151, #6b7280);
+      background-size: 400% 400%;
+      animation: gradientShift 3s ease infinite;
+      border: 2px solid transparent;
+      border-radius: 0.375rem;
+      color: white;
+      font-weight: 500;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      box-shadow:
+        0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      transition: all 0.3s ease;
+    }
+
+    .highlight-flow-btn-platinum:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    .highlight-flow-btn-platinum:focus {
+      outline: none;
+      ring: 2px;
+      ring-offset: 2px;
+      ring-color: #4b5563;
     }
   </style>
 
@@ -930,5 +1137,6 @@ function getYouTubeVideoId(url: string): string | null {
         setActiveView(savedView);
       }
     });
+
   </script>
 </Layout>

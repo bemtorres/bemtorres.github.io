@@ -1,0 +1,168 @@
+---
+import { marked } from 'marked';
+
+interface Props {
+  id: string;
+  title: string;
+  content: string;
+  format: 'markdown' | 'html';
+}
+
+const { id, title, content, format } = Astro.props;
+const processedContent = format === 'markdown' ? marked(content) : content;
+---
+
+<div id={`modal-${id}`} class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+  <div class="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+    <!-- Header del modal -->
+    <div class="flex items-center justify-between p-6 border-b border-gray-200">
+      <h2 class="text-xl font-bold text-gray-900">{title}</h2>
+      <button 
+        onclick={`closeModal('${id}')`}
+        class="text-gray-400 hover:text-gray-600 transition-colors"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+    
+    <!-- Contenido del modal -->
+    <div class="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+      <div class="prose prose-lg max-w-none">
+        <div set:html={processedContent} />
+      </div>
+    </div>
+    
+    <!-- Footer del modal -->
+    <div class="flex justify-end p-6 border-t border-gray-200">
+      <button 
+        onclick={`closeModal('${id}')`}
+        class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+      >
+        Cerrar
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openModal(id: string) {
+    const modal = document.getElementById(`modal-${id}`);
+    if (modal) {
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeModal(id: string) {
+    const modal = document.getElementById(`modal-${id}`);
+    if (modal) {
+      modal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+  }
+
+  // Cerrar modal al hacer clic fuera del contenido
+  document.addEventListener('click', (e) => {
+    const modals = document.querySelectorAll('[id^="modal-"]');
+    modals.forEach(modal => {
+      if (e.target === modal) {
+        const id = modal.id.replace('modal-', '');
+        closeModal(id);
+      }
+    });
+  });
+
+  // Cerrar modal con la tecla Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const visibleModal = document.querySelector('[id^="modal-"]:not(.hidden)');
+      if (visibleModal) {
+        const id = visibleModal.id.replace('modal-', '');
+        closeModal(id);
+      }
+    }
+  });
+
+  // Exponer funciones globalmente
+  (window as any).openModal = openModal;
+  (window as any).closeModal = closeModal;
+</script>
+
+<style>
+  /* Estilos para el contenido del documento */
+  .prose h1 {
+    @apply text-3xl font-bold text-gray-900 mb-6 mt-8;
+  }
+
+  .prose h2 {
+    @apply text-2xl font-bold text-gray-900 mb-4 mt-6;
+  }
+
+  .prose h3 {
+    @apply text-xl font-semibold text-gray-900 mb-3 mt-5;
+  }
+
+  .prose h4 {
+    @apply text-lg font-semibold text-gray-900 mb-2 mt-4;
+  }
+
+  .prose p {
+    @apply text-gray-700 leading-relaxed mb-4;
+  }
+
+  .prose ul {
+    @apply list-disc list-inside mb-4 space-y-2;
+  }
+
+  .prose ol {
+    @apply list-decimal list-inside mb-4 space-y-2;
+  }
+
+  .prose li {
+    @apply text-gray-700;
+  }
+
+  .prose blockquote {
+    @apply border-l-4 border-blue-500 pl-4 italic text-gray-600 my-6;
+  }
+
+  .prose code {
+    @apply bg-gray-100 px-2 py-1 rounded text-sm font-mono;
+  }
+
+  .prose pre {
+    @apply bg-gray-900 text-white p-4 rounded-lg overflow-x-auto mb-4;
+  }
+
+  .prose pre code {
+    @apply bg-transparent p-0 text-white;
+  }
+
+  .prose a {
+    @apply text-blue-600 hover:text-blue-800 underline;
+  }
+
+  .prose strong {
+    @apply font-bold text-gray-900;
+  }
+
+  .prose em {
+    @apply italic;
+  }
+
+  /* Animación del modal */
+  [id^="modal-"] {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style> 

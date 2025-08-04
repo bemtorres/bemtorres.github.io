@@ -1,0 +1,135 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getPostsByTag, getCategoryById } from '../../../lib/blogs';
+
+export async function getStaticPaths() {
+  const { getPublishedPosts } = await import('../../../lib/blogs');
+  const posts = getPublishedPosts();
+  
+  // Obtener todos los tags únicos
+  const allTags = [...new Set(posts.flatMap(post => post.tags))];
+  
+  return allTags.map(tag => ({
+    params: { tag },
+    props: { tag, posts: getPostsByTag(tag) }
+  }));
+}
+
+const { tag, posts } = Astro.props;
+---
+
+<Layout 
+  title={`#${tag} - Blog - Profebenja`} 
+  description={`Artículos etiquetados con #${tag}`}
+>
+  <div class="max-w-4xl mx-auto">
+    <!-- Breadcrumb -->
+    <nav class="mb-8">
+      <ol class="flex items-center space-x-2 text-sm text-gray-500">
+        <li><a href="/" class="hover:text-gray-700">Home</a></li>
+        <li>›</li>
+        <li><a href="/blog" class="hover:text-gray-700">Blog</a></li>
+        <li>›</li>
+        <li class="text-gray-900">#{tag}</li>
+      </ol>
+    </nav>
+
+    <!-- Header del tag -->
+    <div class="text-center mb-12">
+      <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-500 text-white text-2xl rounded-full mb-4">
+        #
+      </div>
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">#{tag}</h1>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        Artículos etiquetados con <span class="font-semibold text-blue-600">#{tag}</span>
+      </p>
+      <p class="text-gray-500 mt-2">
+        {posts.length} artículo{posts.length !== 1 ? 's' : ''} encontrado{posts.length !== 1 ? 's' : ''}
+      </p>
+    </div>
+
+    <!-- Lista de posts -->
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      {posts.map(post => (
+        <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+          {post.featuredImage && (
+            <img 
+              src={post.featuredImage} 
+              alt={post.title}
+              class="w-full h-48 object-cover"
+            />
+          )}
+          <div class="p-6">
+            <!-- Categorías -->
+            <div class="flex flex-wrap gap-2 mb-3">
+              {post.categories.map(categoryId => {
+                const category = getCategoryById(categoryId);
+                return category ? (
+                  <span class={`px-2 py-1 ${category.color} text-white text-xs rounded-full`}>
+                    {category.icon} {category.name}
+                  </span>
+                ) : null;
+              })}
+            </div>
+
+            <!-- Título -->
+            <h2 class="text-xl font-bold text-gray-900 mb-2 hover:text-blue-600 transition-colors">
+              <a href={`/blog/${post.id}`}>{post.title}</a>
+            </h2>
+
+            <!-- Descripción -->
+            <p class="text-gray-600 mb-4 line-clamp-3">{post.excerpt}</p>
+
+            <!-- Meta información -->
+            <div class="flex items-center justify-between text-sm text-gray-500">
+              <div class="flex items-center space-x-4">
+                <span>👤 {post.author}</span>
+                <span>📅 {new Date(post.publishDate).toLocaleDateString('es-ES')}</span>
+              </div>
+              <span>⏱️ {post.readingTime} min</span>
+            </div>
+
+            <!-- Tags -->
+            {post.tags.length > 0 && (
+              <div class="mt-4 flex flex-wrap gap-1">
+                {post.tags.map(postTag => (
+                  <a 
+                    href={`/blog/tag/${postTag}`}
+                    class={`px-2 py-1 text-xs rounded ${
+                      postTag === tag 
+                        ? 'bg-blue-500 text-white' 
+                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    }`}
+                  >
+                    #{postTag}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Mensaje si no hay posts -->
+    {posts.length === 0 && (
+      <div class="text-center py-12">
+        <div class="text-6xl mb-4">🔍</div>
+        <h3 class="text-xl font-semibold text-gray-900 mb-2">No se encontraron artículos</h3>
+        <p class="text-gray-600">No hay artículos etiquetados con #{tag}.</p>
+        <a href="/blog" class="inline-block mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+          Ver todos los artículos
+        </a>
+      </div>
+    )}
+  </div>
+</Layout>
+
+<style>
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style> 

@@ -1,0 +1,109 @@
+---
+import { getPublishedPosts, getCategoryById } from '../lib/blogs';
+
+interface Props {
+  limit?: number;
+  showTitle?: boolean;
+}
+
+const { limit = 3, showTitle = true } = Astro.props;
+const posts = getPublishedPosts().slice(0, limit);
+---
+
+{posts.length > 0 && (
+  <section class="py-12 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {showTitle && (
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">📝 Últimos Artículos</h2>
+          <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            Descubre nuestros últimos artículos sobre tecnología, educación y desarrollo web
+          </p>
+        </div>
+      )}
+
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {posts.map(post => (
+          <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+            {post.featuredImage && (
+              <img 
+                src={post.featuredImage} 
+                alt={post.title}
+                class="w-full h-48 object-cover"
+              />
+            )}
+            <div class="p-6">
+              <!-- Categorías -->
+              <div class="flex flex-wrap gap-2 mb-3">
+                {post.categories.map(categoryId => {
+                  const category = getCategoryById(categoryId);
+                  return category ? (
+                    <span class={`px-2 py-1 ${category.color} text-white text-xs rounded-full`}>
+                      {category.icon} {category.name}
+                    </span>
+                  ) : null;
+                })}
+              </div>
+
+              <!-- Título -->
+              <h3 class="text-xl font-bold text-gray-900 mb-2 hover:text-blue-600 transition-colors">
+                <a href={`/blog/${post.id}`}>{post.title}</a>
+              </h3>
+
+              <!-- Descripción -->
+              <p class="text-gray-600 mb-4 line-clamp-3">{post.excerpt}</p>
+
+              <!-- Meta información -->
+              <div class="flex items-center justify-between text-sm text-gray-500">
+                <div class="flex items-center space-x-4">
+                  <span>👤 {post.author}</span>
+                  <span>📅 {new Date(post.publishDate).toLocaleDateString('es-ES')}</span>
+                </div>
+                <span>⏱️ {post.readingTime} min</span>
+              </div>
+
+              <!-- Tags -->
+              {post.tags.length > 0 && (
+                <div class="mt-4 flex flex-wrap gap-1">
+                  {post.tags.slice(0, 3).map(tag => (
+                    <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded">
+                      #{tag}
+                    </span>
+                  ))}
+                  {post.tags.length > 3 && (
+                    <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded">
+                      +{post.tags.length - 3}
+                    </span>
+                  )}
+                </div>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+
+      {showTitle && posts.length > 0 && (
+        <div class="text-center mt-8">
+          <a 
+            href="/blog" 
+            class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Ver todos los artículos
+            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+      )}
+    </div>
+  </section>
+)}
+
+<style>
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style> 
