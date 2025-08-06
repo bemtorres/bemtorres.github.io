@@ -99,7 +99,7 @@ const classes: Class[] = [
         url: 'https://drive.google.com/file/d/1TvrdOTX8USUihE9mFA_1COBtZs0njC53/view?usp=sharing'
       },
       {
-        name: '¿Que son las bases de datos?',
+        name: 'Que son las bases de datos?',
         type: 'content',
         fileType: 'youtube',
         icon: 'youtube',
@@ -155,7 +155,7 @@ const classes: Class[] = [
         url: 'https://drive.google.com/drive/folders/1FOFOLtmD1wDf642-xca2XdDaoWRItG3D?usp=sharing'
       },
       {
-        name: '¿Qué es un base de datos DBMS?',
+        name: 'Que es un base de datos DBMS?',
         type: 'content',
         fileType: 'youtube',
         // highlightFlow: true,
@@ -193,8 +193,8 @@ const classes: Class[] = [
         type: 'content',
         fileType: 'pdf',
         icon: 'pdf',
+        url: 'https://drive.google.com/drive/folders/1FOFOLtmD1wDf642-xca2XdDaoWRItG3D?usp=sharing'
       },
-      // url: 'https://drive.google.com/drive/folders/1FOFOLtmD1wDf642-xca2XdDaoWRItG3D?usp=sharing'
       {
         name: 'Introducción a Diagramas Entidad Relación - by cidecame.uaeh.edu.mx',
         type: 'content',
@@ -210,7 +210,7 @@ const classes: Class[] = [
         highlightColor: 'Gold',
         password: 'profe2025',
         url: 'https://miro.com/welcomeonboard/L21WUnFuTzhMZkdHYWFZbHNmd0lNWXc2c2xRb21BRXFkdXRVcHJwa3g4Um9zcDkyR3EyMkVkTXFzTGloVmNCTVU1UXVSbDdweDM0V0NpOXgxMzQ4bXlTdlUxeTM0SThycW5yVmw0RWl4TU5xOG1CQi9mY2lvV2pwTWEwbHl4aGNhWWluRVAxeXRuUUgwWDl3Mk1qRGVRPT0hdjE=?share_link_id=885668326843'
-      }
+      },
       // url: 'https://drive.google.com/drive/folders/1FOFOLtmD1wDf642-xca2XdDaoWRItG3D?usp=sharing'
       // {
       //   name: '📚 Documentación de la Clase - Conceptos Básicos',
@@ -325,63 +325,5 @@ const classes: Class[] = [
     // ]
   }
 ];
-
-
-
-
-//   id: 'class-2',
-  //   title: 'Data Structures',
-  //   description: 'Arrays, lists, stacks and queues',
-  //   date: '2024-01-22',
-  //   materials: [
-  //     {
-  //       name: 'Linear Structures',
-  //       type: 'title',
-  //       description: 'Arrays, linked lists and their implementations'
-  //     },
-  //     {
-  //       name: 'Theory - Data Structures',
-  //       type: 'content',
-  //       fileType: 'pdf',
-  //       size: '4.1 MB',
-  //       url: '/documentos/clase-2/teoria-estructuras.pdf'
-  //     },
-  //     {
-  //       name: 'Java Implementations',
-  //       type: 'content',
-  //       fileType: 'zip',
-  //       size: '2.3 MB',
-  //       url: '/documentos/clase-2/implementaciones-java.zip'
-  //     }
-  //   ]
-  // },
-  // {
-  //   id: 'class-3',
-  //   title: 'Object-Oriented Programming',
-  //   description: 'Classes, objects, inheritance and polymorphism',
-  //   date: '2024-01-29',
-  //   materials: [
-  //     {
-  //       name: 'OOP Concepts',
-  //       type: 'title',
-  //       description: 'Encapsulation, inheritance and polymorphism'
-  //     },
-  //     {
-  //       name: 'Presentation - OOP',
-  //       type: 'content',
-  //       fileType: 'ppt',
-  //       size: '5.2 MB',
-  //       url: '/documentos/clase-3/presentacion-poo.pptx'
-  //     },
-  //     {
-  //       name: 'Practical Project',
-  //       type: 'content',
-  //       fileType: 'zip',
-  //       size: '8.7 MB',
-  //       url: '/documentos/clase-3/proyecto-practico.zip'
-  //     }
-  //   ]
-  // }
-
 
 export default classes; 
