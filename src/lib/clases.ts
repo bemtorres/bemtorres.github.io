@@ -152,7 +152,7 @@ const classes: Class[] = [
         type: 'content',
         fileType: 'pdf',
         icon: 'pdf',
-        url: 'https://drive.google.com/drive/folders/1FOFOLtmD1wDf642-xca2XdDaoWRItG3D?usp=sharing'
+        url: 'https://drive.google.com/file/d/192mVIRMd21UndKjeo1h_I4sPdDCdmOJB/view?usp=sharing'
       },
       {
         name: 'Que es un base de datos DBMS?',
@@ -193,7 +193,7 @@ const classes: Class[] = [
         type: 'content',
         fileType: 'pdf',
         icon: 'pdf',
-        url: 'https://drive.google.com/drive/folders/1FOFOLtmD1wDf642-xca2XdDaoWRItG3D?usp=sharing'
+        url: 'https://drive.google.com/file/d/1ErubzIywGG8lhpixIXPi8wGKwwH-9STj/view?usp=sharing'
       },
       {
         name: 'Introducción a Diagramas Entidad Relación - by cidecame.uaeh.edu.mx',
@@ -211,6 +211,25 @@ const classes: Class[] = [
         password: 'profe2025',
         url: 'https://miro.com/welcomeonboard/L21WUnFuTzhMZkdHYWFZbHNmd0lNWXc2c2xRb21BRXFkdXRVcHJwa3g4Um9zcDkyR3EyMkVkTXFzTGloVmNCTVU1UXVSbDdweDM0V0NpOXgxMzQ4bXlTdlUxeTM0SThycW5yVmw0RWl4TU5xOG1CQi9mY2lvV2pwTWEwbHl4aGNhWWluRVAxeXRuUUgwWDl3Mk1qRGVRPT0hdjE=?share_link_id=885668326843'
       },
+      {
+        name: 'Tarea de investigación - FN1. FN2, FN3',
+        type: 'content',
+        fileType: 'document',
+        icon: 'document',
+        url: 'https://docs.google.com/document/d/1OWQC-R-xrvDz9B5UomJLgSQX3iBezkZn/edit?usp=sharing&ouid=111508538317434257680&rtpof=true&sd=true'
+      },
+      {
+        name: 'Crear equipo de trabajo',
+        type: 'content',
+        fileType: 'folder',
+        icon: 'drive',
+        highlightFlow: true,
+        highlightColor: 'Diamant',
+        password: 'profe2025',
+        url: 'https://drive.google.com/drive/folders/1cS33XPcv_Xr2OKgKwrbwdJHwYlFxVmc2?usp=sharing'
+      },
+
+    
       // url: 'https://drive.google.com/drive/folders/1FOFOLtmD1wDf642-xca2XdDaoWRItG3D?usp=sharing'
       // {
       //   name: '📚 Documentación de la Clase - Conceptos Básicos',
