@@ -1,71 +1,103 @@
 ---
 import { marked } from 'marked';
 import DocumentModal from './DocumentModal.astro';
+import type { Material, Activity } from '../lib/clases';
 
 interface Props {
-  material: {
-    name: string;
-    content?: string;
-    format?: 'markdown' | 'html';
-    showContent?: 'modal' | 'details' | 'inline';
-  };
+  item: Material | Activity;
   classId: string;
 }
 
-const { material, classId } = Astro.props;
-const documentId = `doc-${classId}-${material.name.replace(/\s+/g, '-').toLowerCase()}`;
-const content = material.content || '';
-const format = material.format || 'markdown';
-const processedContent = format === 'markdown' ? marked(content) : content;
-const showContent = material.showContent || 'modal';
+const { item, classId } = Astro.props;
+
+const isActivity = (item: Material | Activity): item is Activity => {
+  return 'questions' in item || 'steps' in item;
+};
+
+if (isActivity(item)) {
+  // Lógica para renderizar actividades
+  const activity = item;
+  if (activity.type === 'practice') {
+    // Renderizar actividad práctica
+  }
+} else {
+  // Lógica para renderizar materiales
+  const material = item;
+  const documentId = `doc-${classId}-${material.name.replace(/\s+/g, '-').toLowerCase()}`;
+  const content = material.content || '';
+  const format = material.format || 'markdown';
+  const processedContent = format === 'markdown' ? marked(content) : content;
+  const showContent = material.showContent || 'modal';
+}
 ---
 
-{showContent === 'modal' && (
+{isActivity(item) ? (
   <>
-    <button
-      onclick={`openModal('${documentId}')`}
-      data-document-id={documentId}
-      class="document-modal-btn inline-flex items-center justify-center px-3 sm:px-4 py-2 border border-transparent text-xs sm:text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors w-full sm:w-auto"
-    >
-      <span class="mr-1 sm:mr-2">📄</span>
-      Ver Documento
-    </button>
-    <DocumentModal
-      id={documentId}
-      title={material.name}
-      content={content}
-      format={format}
-    />
-  </>
-)}
-
-{showContent === 'details' && (
-  <details class="mt-4 bg-gray-50 rounded-lg border border-gray-200">
-    <summary class="cursor-pointer p-4 font-medium text-gray-900 hover:bg-gray-100 transition-colors flex items-center">
-      <span class="mr-2">📄</span>
-      {material.name}
-      <svg class="w-5 h-5 ml-auto transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-      </svg>
-    </summary>
-    <div class="p-4 border-t border-gray-200">
-      <div class="prose prose-sm max-w-none">
-        <div set:html={processedContent} />
+    {item.type === 'practice' && (
+      <div class="mt-4 bg-yellow-50 rounded-lg border border-yellow-200 p-4">
+        <h3 class="text-lg font-semibold text-yellow-900 mb-3 flex items-center">
+          <span class="mr-2">📝</span>
+          {item.title}
+        </h3>
+        <p class="text-yellow-800 mb-3">{item.description}</p>
+        <ol class="list-decimal list-inside text-yellow-800">
+          {item.steps.map((step) => (
+            <li class="mb-1">{step}</li>
+          ))}
+        </ol>
       </div>
-    </div>
-  </details>
-)}
+    )}
+  </>
+) : (
+  <>
+    {item.showContent === 'modal' && (
+      <>
+        <button
+          onclick={`openModal('${`doc-${classId}-${item.name.replace(/\s+/g, '-').toLowerCase()}`}')`}
+          data-document-id={`doc-${classId}-${item.name.replace(/\s+/g, '-').toLowerCase()}`}
+          class="document-modal-btn inline-flex items-center justify-center px-3 sm:px-4 py-2 border border-transparent text-xs sm:text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors w-full sm:w-auto"
+        >
+          <span class="mr-1 sm:mr-2">📄</span>
+          Ver Documento
+        </button>
+        <DocumentModal
+          id={`doc-${classId}-${item.name.replace(/\s+/g, '-').toLowerCase()}`}
+          title={item.name}
+          content={item.content || ''}
+          format={item.format || 'markdown'}
+        />
+      </>
+    )}
 
-{showContent === 'inline' && (
-  <div class="mt-4 bg-white rounded-lg border border-gray-200 p-4">
-    <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
-      <span class="mr-2">📄</span>
-      {material.name}
-    </h3>
-    <div class="prose prose-sm max-w-none">
-      <div set:html={processedContent} />
-    </div>
-  </div>
+    {item.showContent === 'details' && (
+      <details class="mt-4 bg-gray-50 rounded-lg border border-gray-200">
+        <summary class="cursor-pointer p-4 font-medium text-gray-900 hover:bg-gray-100 transition-colors flex items-center">
+          <span class="mr-2">📄</span>
+          {item.name}
+          <svg class="w-5 h-5 ml-auto transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </summary>
+        <div class="p-4 border-t border-gray-200">
+          <div class="prose prose-sm max-w-none">
+            <div set:html={marked(item.content || '')} />
+          </div>
+        </div>
+      </details>
+    )}
+
+    {item.showContent === 'inline' && (
+      <div class="mt-4 bg-white rounded-lg border border-gray-200 p-4">
+        <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+          <span class="mr-2">📄</span>
+          {item.name}
+        </h3>
+        <div class="prose prose-sm max-w-none">
+          <div set:html={marked(item.content || '')} />
+        </div>
+      </div>
+    )}
+  </>
 )}
 
 <style>

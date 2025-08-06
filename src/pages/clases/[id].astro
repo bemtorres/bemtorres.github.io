@@ -192,6 +192,14 @@ function getYouTubeVideoId(url: string): string | null {
           return null;
         }
 
+        if (material.type === "hr") {
+          return (
+            <div class="hr-item my-3">
+              <hr class="border-t-2 border-gray-200" />
+            </div>
+          );
+        }
+
         if (material.type === "title") {
           return (
             <div class="title-item mb-3 text-center">
@@ -223,7 +231,7 @@ function getYouTubeVideoId(url: string): string | null {
           if (material.type === "document" && (material.showContent === "details" || material.showContent === "inline")) {
             return (
               <div class="document-content-item w-full">
-                <DocumentDisplay material={material} classId={classItem.id} />
+                <DocumentDisplay item={material} classId={classItem.id} />
               </div>
             );
           }
@@ -359,7 +367,7 @@ function getYouTubeVideoId(url: string): string | null {
                     </button>
                   )
                 ) : material.type === "document" ? (
-                  <DocumentDisplay material={material} classId={classItem.id} />
+                  <DocumentDisplay item={material} classId={classItem.id} />
                 ) : hasPassword ? (
                   <button
                     data-material-url={material.url}
@@ -418,6 +426,14 @@ function getYouTubeVideoId(url: string): string | null {
         }
         return null;
       })
+    }
+    {
+      classItem.activities &&
+        classItem.activities.map((activity) => (
+          <div class="activity-item w-full">
+            <DocumentDisplay item={activity} classId={classItem.id} />
+          </div>
+        ))
     }
   </div>
 
