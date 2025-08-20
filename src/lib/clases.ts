@@ -113,6 +113,21 @@ const classes: Class[] = [
         description: 'Contenido: 8 horas de material de estudio'
       },
       {
+        name: 'Materiales a descargar',
+        type: 'subtitle',
+        // description: 'Click on any file to download it. All materials are organized to facilitate your study.'
+      },
+      {
+        name: 'Descargar SQL Data Modeler',
+        type: 'content',
+        fileType: 'folder',
+        icon: 'file',
+        // size: '2.5 MB',
+        // password: "123456",
+        // status: 'locked',
+        url: 'https://www.oracle.com/latam/database/sqldeveloper/technologies/sql-data-modeler/download/'
+      },
+      {
         name: 'Semana 1 - 23 Julio 2025',
         type: 'subtitle',
         // description: 'Click on any file to download it. All materials are organized to facilitate your study.'
