@@ -2,6 +2,8 @@
 import Layout from "../../layouts/Layout.astro";
 import classes from "../../lib/clases";
 import DocumentDisplay from "../../components/DocumentDisplay.astro";
+import QuizModal from "../../components/QuizModal.astro";
+import QuizItem from "../../components/QuizItem.astro";
 import { 
   LinkIcon, 
   PowerpointIcon, 
@@ -226,6 +228,8 @@ function getYouTubeVideoId(url: string): string | null {
               )}
             </div>
           );
+        } else if (material.type === "quiz") {
+          return <QuizItem material={material} classId={classItem.id} />;
         } else if (material.type === "content" || material.type === "document") {
           // Si es un documento con showContent 'details' o 'inline', renderizar de manera especial
           if (material.type === "document" && (material.showContent === "details" || material.showContent === "inline")) {
@@ -1146,13 +1150,46 @@ function getYouTubeVideoId(url: string): string | null {
       localStorage.setItem("preferredView", view);
     }
 
-    // Cargar preferencia guardada al cargar la página
-    document.addEventListener("DOMContentLoaded", function () {
-      const savedView = localStorage.getItem("preferredView");
-      if (savedView && (savedView === "list" || savedView === "grid")) {
-        setActiveView(savedView);
-      }
-    });
+          // Cargar preferencia guardada al cargar la página
+      document.addEventListener("DOMContentLoaded", function () {
+        const savedView = localStorage.getItem("preferredView");
+        if (savedView && (savedView === "list" || savedView === "grid")) {
+          setActiveView(savedView);
+        }
+      });
+
+      // Manejo de botones de quiz
+      document.addEventListener("click", function (e) {
+        const target = e.target as HTMLElement;
+        const quizBtn = target.closest('.quiz-btn') as HTMLButtonElement;
+        
+        if (quizBtn) {
+          const quizId = quizBtn.getAttribute('data-quiz-id');
+          const quizShow = quizBtn.getAttribute('data-quiz-show');
+          
+          if (quizId) {
+            if (quizShow === 'modal') {
+              // Abrir quiz en modal
+              const quizModal = document.getElementById('quiz-modal');
+              if (quizModal) {
+                quizModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+              }
+            } else if (quizShow === 'newpage') {
+              // Abrir quiz en nueva página
+              window.open(`/quiz/${quizId}`, '_blank');
+            }
+          }
+        }
+      });
 
   </script>
+
+  <!-- Quiz Modals -->
+  {classItem.materials
+    .filter(material => material.type === 'quiz' && material.quiz && material.quiz.show === 'modal')
+    .map(material => (
+      <QuizModal quiz={material.quiz} classId={classItem.id} />
+    ))
+  }
 </Layout>

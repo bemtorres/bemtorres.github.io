@@ -1,0 +1,111 @@
+---
+export interface Props {
+  material: any;
+  classId: string;
+}
+
+const { material, classId } = Astro.props;
+
+// Verificar si el quiz está disponible
+const quiz = material.quiz;
+if (!quiz) return null;
+
+const hasHighlightFlow = material.highlightFlow === true;
+const highlightColor = material.highlightColor || 'Gold';
+const isActive = quiz.status === 'active';
+const now = new Date();
+const startDate = quiz.dateStart ? new Date(quiz.dateStart) : null;
+const endDate = quiz.dateFinish ? new Date(quiz.dateFinish) : null;
+
+// Verificar si el quiz está disponible según las fechas
+const isAvailable = !startDate || (now >= startDate);
+const isExpired = endDate && now > endDate;
+const isInTimeWindow = !startDate || !endDate || (now >= startDate && now <= endDate);
+
+// Clases base del contenedor
+let containerClass = "material-item mx-2 sm:mx-6 rounded-lg p-3 sm:p-4 transition-all duration-200";
+
+if (hasHighlightFlow) {
+  containerClass += ` highlight-flow-${highlightColor.toLowerCase()}`;
+} else if (material.highlight) {
+  containerClass += " border-4 border-yellow-400";
+} else {
+  containerClass += " border border-gray-200";
+}
+
+if (!isActive || !isInTimeWindow) {
+  containerClass += " opacity-60 bg-gray-50 border-gray-300";
+} else {
+  containerClass += " bg-white";
+  if (isActive && isInTimeWindow && !material.highlight && !hasHighlightFlow) {
+    containerClass += " hover:border-primary-300 hover:shadow-md";
+  }
+}
+
+// Clases del botón
+let buttonClass = "quiz-btn inline-flex items-center justify-center px-3 sm:px-4 py-2 border border-transparent text-xs sm:text-sm font-medium rounded-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors w-full sm:w-auto";
+
+if (hasHighlightFlow) {
+  buttonClass += ` highlight-flow-btn-${highlightColor.toLowerCase()}`;
+} else if (material.highlight) {
+  buttonClass += " bg-yellow-500 focus:ring-yellow-500 focus:ring-offset-yellow-500";
+} else {
+  buttonClass += " bg-purple-600 focus:ring-purple-500 focus:ring-offset-purple-500 hover:bg-purple-700";
+}
+---
+
+<div class={containerClass}>
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+    <div class="flex items-center space-x-3 sm:space-x-4 min-w-0 flex-1">
+      <div class="text-2xl sm:text-3xl flex-shrink-0">
+        <svg class="w-8 h-8 sm:w-10 sm:h-10 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+        </svg>
+      </div>
+      <div class="min-w-0 flex-1">
+        <h3 class="text-base sm:text-lg font-medium text-gray-900 truncate">
+          {material.name}
+        </h3>
+        <p class="text-xs sm:text-sm text-gray-500">
+          {quiz.description && (
+            <span class="block">{quiz.description}</span>
+          )}
+          <span class="block">
+            📊 {quiz.questions.length} preguntas • 🎯 {quiz.totalPoints} puntos
+          </span>
+          {startDate && (
+            <span class="block">
+              📅 Disponible desde: {startDate.toLocaleDateString('es-ES')} {startDate.toLocaleTimeString('es-ES', {hour: '2-digit', minute: '2-digit'})}
+            </span>
+          )}
+          {endDate && (
+            <span class="block">
+              ⏰ Cierra: {endDate.toLocaleDateString('es-ES')} {endDate.toLocaleTimeString('es-ES', {hour: '2-digit', minute: '2-digit'})}
+            </span>
+          )}
+          {!isActive && <span class="text-red-600">❌ Inactivo</span>}
+          {isExpired && <span class="text-red-600">⏰ Expirado</span>}
+          {!isAvailable && <span class="text-orange-600">⏳ Próximamente</span>}
+        </p>
+      </div>
+    </div>
+    {!isActive || !isInTimeWindow ? (
+      <button
+        disabled
+        class="inline-flex items-center justify-center px-3 sm:px-4 py-2 border border-transparent text-xs sm:text-sm font-medium rounded-md text-gray-400 bg-gray-200 cursor-not-allowed w-full sm:w-auto"
+      >
+        <span class="mr-1 sm:mr-2">🔒</span>
+        {!isActive ? 'Inactivo' : isExpired ? 'Expirado' : 'No disponible'}
+      </button>
+    ) : (
+      <button
+        data-quiz-id={quiz.id}
+        data-quiz-show={quiz.show}
+        class={buttonClass}
+      >
+        <span class="mr-1 sm:mr-2">📝</span>
+        {quiz.show === 'modal' ? 'Comenzar Quiz' : 'Abrir Quiz'}
+      </button>
+    )}
+  </div>
+</div>

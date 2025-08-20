@@ -1,0 +1,307 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import classes from "../../lib/clases";
+
+export async function getStaticPaths() {
+  const allQuizzes: Array<{id: string, quiz: any, classId: string, className: string}> = [];
+  
+  classes.forEach(classItem => {
+    classItem.materials.forEach(material => {
+      if (material.type === 'quiz' && material.quiz) {
+        allQuizzes.push({
+          id: material.quiz.id,
+          quiz: material.quiz,
+          classId: classItem.id,
+          className: classItem.title
+        });
+      }
+    });
+  });
+
+  return allQuizzes.map(({id, quiz, classId, className}) => ({
+    params: { id },
+    props: { quiz, classId, className }
+  }));
+}
+
+const { quiz, classId, className } = Astro.props;
+
+// Verificar si el quiz está disponible
+const now = new Date();
+const startDate = quiz.dateStart ? new Date(quiz.dateStart) : null;
+const endDate = quiz.dateFinish ? new Date(quiz.dateFinish) : null;
+const isAvailable = !startDate || (now >= startDate);
+const isExpired = endDate && now > endDate;
+const isInTimeWindow = !startDate || !endDate || (now >= startDate && now <= endDate);
+const isActive = quiz.status === 'active';
+---
+
+<Layout title={`${quiz.title} - Quiz`}>
+  <div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Breadcrumb -->
+      <nav class="flex mb-8" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+          <li class="inline-flex items-center">
+            <a href="/" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-primary-600">
+              Home
+            </a>
+          </li>
+          <li>
+            <div class="flex items-center">
+              <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <a href="/clases" class="ml-1 text-sm font-medium text-gray-700 hover:text-primary-600 md:ml-2">
+                Clases
+              </a>
+            </div>
+          </li>
+          <li>
+            <div class="flex items-center">
+              <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <a href={`/clases/${classId}`} class="ml-1 text-sm font-medium text-gray-700 hover:text-primary-600 md:ml-2">
+                {className}
+              </a>
+            </div>
+          </li>
+          <li aria-current="page">
+            <div class="flex items-center">
+              <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">
+                Quiz
+              </span>
+            </div>
+          </li>
+        </ol>
+      </nav>
+
+      <!-- Quiz Header -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
+        <div class="text-center">
+          <h1 class="text-3xl font-bold text-gray-900 mb-4">{quiz.title}</h1>
+          {quiz.description && (
+            <p class="text-lg text-gray-600 mb-6">{quiz.description}</p>
+          )}
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div class="bg-blue-50 rounded-lg p-4">
+              <div class="text-2xl font-bold text-blue-600">{quiz.questions.length}</div>
+              <div class="text-sm text-blue-800">Preguntas</div>
+            </div>
+            <div class="bg-green-50 rounded-lg p-4">
+              <div class="text-2xl font-bold text-green-600">{quiz.totalPoints}</div>
+              <div class="text-sm text-green-800">Puntos Totales</div>
+            </div>
+            <div class="bg-purple-50 rounded-lg p-4">
+              <div class="text-2xl font-bold text-purple-600">
+                {Math.round(quiz.totalPoints / quiz.questions.length)}
+              </div>
+              <div class="text-sm text-purple-800">Puntos por Pregunta</div>
+            </div>
+          </div>
+
+          <!-- Status Information -->
+          {!isActive && (
+            <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+              <div class="flex items-center">
+                <svg class="w-5 h-5 text-red-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-red-800 font-medium">Este quiz está inactivo</span>
+              </div>
+            </div>
+          )}
+
+          {!isInTimeWindow && (
+            <div class="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-6">
+              <div class="flex items-center">
+                <svg class="w-5 h-5 text-orange-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-orange-800 font-medium">
+                  {isExpired ? 'Este quiz ha expirado' : 'Este quiz aún no está disponible'}
+                </span>
+              </div>
+            </div>
+          )}
+
+          {startDate && (
+            <div class="text-sm text-gray-600 mb-2">
+              <strong>Disponible desde:</strong> {startDate.toLocaleDateString('es-ES')} {startDate.toLocaleTimeString('es-ES', {hour: '2-digit', minute: '2-digit'})}
+            </div>
+          )}
+          
+          {endDate && (
+            <div class="text-sm text-gray-600 mb-4">
+              <strong>Cierra:</strong> {endDate.toLocaleDateString('es-ES')} {endDate.toLocaleTimeString('es-ES', {hour: '2-digit', minute: '2-digit'})}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <!-- Quiz Content -->
+      {isActive && isInTimeWindow ? (
+        <div id="quiz-container" class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+          <div id="quiz-instructions" class="text-center mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Instrucciones</h2>
+            <div class="max-w-2xl mx-auto text-gray-600 space-y-2">
+              <p>• Lee cada pregunta cuidadosamente antes de responder</p>
+              <p>• Solo puedes seleccionar una respuesta por pregunta</p>
+              <p>• Una vez que envíes el quiz, no podrás cambiarlo</p>
+              <p>• Tienes tiempo hasta que se cierre el quiz</p>
+            </div>
+            <button 
+              id="start-quiz-btn"
+              class="mt-6 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-lg transition-colors"
+            >
+              Comenzar Quiz
+            </button>
+          </div>
+
+          <div id="quiz-questions" class="hidden">
+            <form id="quiz-form" class="space-y-8">
+              {quiz.questions.map((question, index) => (
+                <div class="question-container border border-gray-200 rounded-lg p-6" data-question-index={index}>
+                  <div class="flex items-start justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-gray-900">
+                      Pregunta {index + 1}
+                    </h3>
+                    <span class="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                      {question.score} puntos
+                    </span>
+                  </div>
+                  
+                  <p class="text-gray-700 mb-4">{question.title}</p>
+                  
+                  <div class="space-y-3">
+                    {question.alternatives.map((alternative) => (
+                      <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+                        <input 
+                          type={question.type === 'multiple' ? 'radio' : 'radio'}
+                          name={`question-${index}`}
+                          value={alternative.code}
+                          class="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 focus:ring-purple-500 focus:ring-2"
+                        />
+                        <span class="ml-3 text-gray-700">{alternative.content}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              ))}
+              
+              <div class="flex justify-between items-center pt-6 border-t border-gray-200">
+                <button 
+                  type="button"
+                  id="back-to-instructions"
+                  class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded-lg transition-colors"
+                >
+                  Volver a Instrucciones
+                </button>
+                <button 
+                  type="submit"
+                  class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition-colors"
+                >
+                  Enviar Quiz
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      ) : (
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 text-center">
+          <div class="text-gray-500">
+            <svg class="w-16 h-16 mx-auto mb-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+            </svg>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">
+              {!isActive ? 'Quiz Inactivo' : isExpired ? 'Quiz Expirado' : 'Quiz No Disponible'}
+            </h3>
+            <p class="text-gray-600">
+              {!isActive 
+                ? 'Este quiz no está disponible en este momento.' 
+                : isExpired 
+                  ? 'El tiempo para completar este quiz ha terminado.'
+                  : 'Este quiz aún no está disponible para completar.'
+              }
+            </p>
+            <a 
+              href={`/clases/${classId}`}
+              class="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700"
+            >
+              Volver a la Clase
+            </a>
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+
+  <script>
+    // Quiz functionality
+    const startQuizBtn = document.getElementById('start-quiz-btn');
+    const backToInstructionsBtn = document.getElementById('back-to-instructions');
+    const quizInstructions = document.getElementById('quiz-instructions');
+    const quizQuestions = document.getElementById('quiz-questions');
+    const quizForm = document.getElementById('quiz-form');
+
+    if (startQuizBtn && quizInstructions && quizQuestions) {
+      startQuizBtn.addEventListener('click', () => {
+        quizInstructions.classList.add('hidden');
+        quizQuestions.classList.remove('hidden');
+      });
+    }
+
+    if (backToInstructionsBtn && quizInstructions && quizQuestions) {
+      backToInstructionsBtn.addEventListener('click', () => {
+        quizQuestions.classList.add('hidden');
+        quizInstructions.classList.remove('hidden');
+      });
+    }
+
+    if (quizForm) {
+      quizForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Collect answers
+        const answers: Record<string, number> = {};
+        const questions = document.querySelectorAll('.question-container');
+        
+        questions.forEach((question, index) => {
+          const selectedAnswer = question.querySelector(`input[name="question-${index}"]:checked`) as HTMLInputElement;
+          if (selectedAnswer) {
+            answers[index.toString()] = parseInt(selectedAnswer.value);
+          }
+        });
+
+        // Check if all questions are answered
+        const answeredQuestions = Object.keys(answers).length;
+        const totalQuestions = questions.length;
+        
+        if (answeredQuestions < totalQuestions) {
+          alert(`Por favor responde todas las preguntas. Has respondido ${answeredQuestions} de ${totalQuestions} preguntas.`);
+          return;
+        }
+
+        // Calculate score
+        const quizData = {
+          id: '{quiz.id}',
+          answers: answers
+        };
+
+        // Here you would typically send the answers to your backend
+        console.log('Quiz submitted:', quizData);
+        
+        // Show results (this would be replaced with actual backend integration)
+        alert('¡Quiz enviado! Tu puntuación será calculada y mostrada pronto.');
+        
+        // Redirect back to class page
+        window.location.href = '/clases/{classId}';
+      });
+    }
+  </script>
+</Layout>

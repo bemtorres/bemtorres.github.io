@@ -1,0 +1,273 @@
+---
+export interface Props {
+  quiz: any;
+  classId: string;
+}
+
+const { quiz, classId } = Astro.props;
+
+// Verificar si el quiz está disponible
+const now = new Date();
+const startDate = quiz.dateStart ? new Date(quiz.dateStart) : null;
+const endDate = quiz.dateFinish ? new Date(quiz.dateFinish) : null;
+const isAvailable = !startDate || (now >= startDate);
+const isExpired = endDate && now > endDate;
+const isInTimeWindow = !startDate || !endDate || (now >= startDate && now <= endDate);
+const isActive = quiz.status === 'active';
+---
+
+<div id="quiz-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+  <div class="relative top-20 mx-auto p-5 border w-11/12 max-w-4xl shadow-lg rounded-md bg-white">
+    <div class="mt-3">
+      <!-- Header -->
+      <div class="flex items-center justify-between mb-6">
+        <h3 class="text-2xl font-bold text-gray-900">{quiz.title}</h3>
+        <button 
+          id="close-quiz-modal"
+          class="text-gray-400 hover:text-gray-600 text-2xl font-bold"
+        >
+          ×
+        </button>
+      </div>
+
+      <!-- Quiz Info -->
+      <div class="bg-gray-50 rounded-lg p-4 mb-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="text-center">
+            <div class="text-2xl font-bold text-blue-600">{quiz.questions.length}</div>
+            <div class="text-sm text-blue-800">Preguntas</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl font-bold text-green-600">{quiz.totalPoints}</div>
+            <div class="text-sm text-green-800">Puntos Totales</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl font-bold text-purple-600">
+              {Math.round(quiz.totalPoints / quiz.questions.length)}
+            </div>
+            <div class="text-sm text-purple-800">Puntos por Pregunta</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Status Information -->
+      {!isActive && (
+        <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+          <div class="flex items-center">
+            <svg class="w-5 h-5 text-red-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="text-red-800 font-medium">Este quiz está inactivo</span>
+          </div>
+        </div>
+      )}
+
+      {!isInTimeWindow && (
+        <div class="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-6">
+          <div class="flex items-center">
+            <svg class="w-5 h-5 text-orange-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="text-orange-800 font-medium">
+              {isExpired ? 'Este quiz ha expirado' : 'Este quiz aún no está disponible'}
+            </span>
+          </div>
+        </div>
+      )}
+
+      <!-- Quiz Content -->
+      {isActive && isInTimeWindow ? (
+        <div id="quiz-modal-content">
+          <div id="quiz-modal-instructions" class="text-center">
+            <h4 class="text-xl font-bold text-gray-900 mb-4">Instrucciones</h4>
+            <div class="max-w-2xl mx-auto text-gray-600 space-y-2 mb-6">
+              <p>• Lee cada pregunta cuidadosamente antes de responder</p>
+              <p>• Solo puedes seleccionar una respuesta por pregunta</p>
+              <p>• Una vez que envíes el quiz, no podrás cambiarlo</p>
+              <p>• Tienes tiempo hasta que se cierre el quiz</p>
+            </div>
+            <button 
+              id="start-quiz-modal-btn"
+              class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-lg transition-colors"
+            >
+              Comenzar Quiz
+            </button>
+          </div>
+
+          <div id="quiz-modal-questions" class="hidden">
+            <form id="quiz-modal-form" class="space-y-6">
+              {quiz.questions.map((question, index) => (
+                <div class="question-modal-container border border-gray-200 rounded-lg p-4" data-question-index={index}>
+                  <div class="flex items-start justify-between mb-3">
+                    <h4 class="text-lg font-semibold text-gray-900">
+                      Pregunta {index + 1}
+                    </h4>
+                    <span class="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                      {question.score} puntos
+                    </span>
+                  </div>
+                  
+                  <p class="text-gray-700 mb-3">{question.title}</p>
+                  
+                  <div class="space-y-2">
+                    {question.alternatives.map((alternative) => (
+                      <label class="flex items-center p-2 border border-gray-200 rounded hover:bg-gray-50 cursor-pointer transition-colors">
+                        <input 
+                          type="radio"
+                          name={`modal-question-${index}`}
+                          value={alternative.code}
+                          class="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 focus:ring-purple-500 focus:ring-2"
+                        />
+                        <span class="ml-3 text-gray-700 text-sm">{alternative.content}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              ))}
+              
+              <div class="flex justify-between items-center pt-4 border-t border-gray-200">
+                <button 
+                  type="button"
+                  id="back-to-modal-instructions"
+                  class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition-colors"
+                >
+                  Volver
+                </button>
+                <button 
+                  type="submit"
+                  class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors"
+                >
+                  Enviar Quiz
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      ) : (
+        <div class="text-center">
+          <div class="text-gray-500">
+            <svg class="w-16 h-16 mx-auto mb-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+            </svg>
+            <h4 class="text-lg font-medium text-gray-900 mb-2">
+              {!isActive ? 'Quiz Inactivo' : isExpired ? 'Quiz Expirado' : 'Quiz No Disponible'}
+            </h4>
+            <p class="text-gray-600">
+              {!isActive 
+                ? 'Este quiz no está disponible en este momento.' 
+                : isExpired 
+                  ? 'El tiempo para completar este quiz ha terminado.'
+                  : 'Este quiz aún no está disponible para completar.'
+              }
+            </p>
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</div>
+
+<script>
+  // Quiz modal functionality
+  const quizModal = document.getElementById('quiz-modal');
+  const closeQuizModal = document.getElementById('close-quiz-modal');
+  const startQuizModalBtn = document.getElementById('start-quiz-modal-btn');
+  const backToModalInstructions = document.getElementById('back-to-modal-instructions');
+  const quizModalInstructions = document.getElementById('quiz-modal-instructions');
+  const quizModalQuestions = document.getElementById('quiz-modal-questions');
+  const quizModalForm = document.getElementById('quiz-modal-form');
+
+  function openQuizModal() {
+    if (quizModal) {
+      quizModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeQuizModalFunc() {
+    if (quizModal) {
+      quizModal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+      // Reset form
+      if (quizModalForm) {
+        (quizModalForm as HTMLFormElement).reset();
+      }
+      if (quizModalInstructions && quizModalQuestions) {
+        quizModalQuestions.classList.add('hidden');
+        quizModalInstructions.classList.remove('hidden');
+      }
+    }
+  }
+
+  if (closeQuizModal) {
+    closeQuizModal.addEventListener('click', closeQuizModalFunc);
+  }
+
+  if (startQuizModalBtn && quizModalInstructions && quizModalQuestions) {
+    startQuizModalBtn.addEventListener('click', () => {
+      quizModalInstructions.classList.add('hidden');
+      quizModalQuestions.classList.remove('hidden');
+    });
+  }
+
+  if (backToModalInstructions && quizModalInstructions && quizModalQuestions) {
+    backToModalInstructions.addEventListener('click', () => {
+      quizModalQuestions.classList.add('hidden');
+      quizModalInstructions.classList.remove('hidden');
+    });
+  }
+
+  if (quizModalForm) {
+    quizModalForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // Collect answers
+      const answers: Record<string, number> = {};
+      const questions = document.querySelectorAll('.question-modal-container');
+      
+      questions.forEach((question, index) => {
+        const selectedAnswer = question.querySelector(`input[name="modal-question-${index}"]:checked`) as HTMLInputElement;
+        if (selectedAnswer) {
+          answers[index.toString()] = parseInt(selectedAnswer.value);
+        }
+      });
+
+      // Check if all questions are answered
+      const answeredQuestions = Object.keys(answers).length;
+      const totalQuestions = questions.length;
+      
+      if (answeredQuestions < totalQuestions) {
+        alert(`Por favor responde todas las preguntas. Has respondido ${answeredQuestions} de ${totalQuestions} preguntas.`);
+        return;
+      }
+
+      // Here you would typically send the answers to your backend
+      console.log('Quiz modal submitted:', answers);
+      
+      // Show results
+      alert('¡Quiz enviado! Tu puntuación será calculada y mostrada pronto.');
+      
+      // Close modal
+      closeQuizModalFunc();
+    });
+  }
+
+  // Close modal when clicking outside
+  if (quizModal) {
+    quizModal.addEventListener('click', (e) => {
+      if (e.target === quizModal) {
+        closeQuizModalFunc();
+      }
+    });
+  }
+
+  // Close modal with Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && quizModal && !quizModal.classList.contains('hidden')) {
+      closeQuizModalFunc();
+    }
+  });
+
+  // Expose function globally
+  (window as any).openQuizModal = openQuizModal;
+</script>

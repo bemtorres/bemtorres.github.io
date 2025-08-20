@@ -15,6 +15,35 @@ export interface Material {
   content?: string;
   format?: 'markdown' | 'html';
   showContent?: 'modal' | 'details' | 'inline';
+  // Para quizzes
+  quiz?: Quiz;
+}
+
+// Nuevas interfaces para el sistema de Quiz
+export interface QuizAlternative {
+  code: number;
+  content: string;
+  is_correct: boolean;
+}
+
+export interface QuizQuestion {
+  code: string;
+  title: string;
+  type: 'multiple' | 'vof' | 'alternative';
+  score: number; // default 10
+  alternatives: QuizAlternative[];
+}
+
+export interface Quiz {
+  id: string;
+  title: string;
+  description?: string;
+  dateStart: string | null; // fecha y hora de inicio
+  dateFinish: string | null; // fecha y hora de término
+  totalPoints: number;
+  show: 'modal' | 'newpage';
+  questions: QuizQuestion[];
+  status?: 'active' | 'inactive' | 'completed';
 }
 
 export interface BaseQuestion {
@@ -227,6 +256,261 @@ const classes: Class[] = [
         highlightColor: 'Diamant',
         password: 'profe2025',
         url: 'https://drive.google.com/drive/folders/1cS33XPcv_Xr2OKgKwrbwdJHwYlFxVmc2?usp=sharing'
+      },
+      {
+        name: 'hr',
+        type: 'hr'
+      },
+      {
+        name: 'Quiz: Evaluación de Conceptos Básicos',
+        type: 'quiz',
+        fileType: 'quiz',
+        icon: 'test',
+        highlightFlow: true,
+        highlightColor: 'Gold',
+        status: 'hidden',
+        description: 'Evaluación de los conceptos fundamentales de bases de datos',
+        quiz: {
+          id: 'quiz-conceptos-basicos',
+          title: 'Evaluación de Conceptos Básicos de Bases de Datos',
+          description: 'Este quiz evalúa tu comprensión de los conceptos fundamentales de bases de datos',
+          dateStart: '2025-08-08T09:00:00Z',
+          dateFinish: '2025-08-10T23:59:59Z',
+          totalPoints: 50,
+          show: 'newpage',
+          status: 'active',
+          questions: [
+            {
+              code: 'Q001',
+              title: '¿Qué es una base de datos?',
+              type: 'multiple',
+              score: 10,
+              alternatives: [
+                {
+                  code: 1001,
+                  content: 'Un programa de computadora',
+                  is_correct: false
+                },
+                {
+                  code: 1002,
+                  content: 'Una colección organizada de información estructurada',
+                  is_correct: true
+                },
+                {
+                  code: 1003,
+                  content: 'Un tipo de archivo de texto',
+                  is_correct: false
+                },
+                {
+                  code: 1004,
+                  content: 'Un sistema operativo',
+                  is_correct: false
+                }
+              ]
+            },
+            {
+              code: 'Q002',
+              title: '¿Cuál de las siguientes NO es una característica de las bases de datos?',
+              type: 'multiple',
+              score: 10,
+              alternatives: [
+                {
+                  code: 2001,
+                  content: 'Persistencia',
+                  is_correct: false
+                },
+                {
+                  code: 2002,
+                  content: 'Consistencia',
+                  is_correct: false
+                },
+                {
+                  code: 2003,
+                  content: 'Volatilidad',
+                  is_correct: true
+                },
+                {
+                  code: 2004,
+                  content: 'Seguridad',
+                  is_correct: false
+                }
+              ]
+            },
+            {
+              code: 'Q003',
+              title: 'MySQL es un ejemplo de base de datos relacional',
+              type: 'vof',
+              score: 10,
+              alternatives: [
+                {
+                  code: 3001,
+                  content: 'Verdadero',
+                  is_correct: true
+                },
+                {
+                  code: 3002,
+                  content: 'Falso',
+                  is_correct: false
+                }
+              ]
+            },
+            {
+              code: 'Q004',
+              title: '¿Qué significa DBMS?',
+              type: 'alternative',
+              score: 10,
+              alternatives: [
+                {
+                  code: 4001,
+                  content: 'Database Management System',
+                  is_correct: true
+                },
+                {
+                  code: 4002,
+                  content: 'Data Base Memory Storage',
+                  is_correct: false
+                },
+                {
+                  code: 4003,
+                  content: 'Digital Binary Management System',
+                  is_correct: false
+                }
+              ]
+            },
+            {
+              code: 'Q005',
+              title: 'MongoDB es un ejemplo de base de datos NoSQL',
+              type: 'vof',
+              score: 10,
+              alternatives: [
+                {
+                  code: 5001,
+                  content: 'Verdadero',
+                  is_correct: true
+                },
+                {
+                  code: 5002,
+                  content: 'Falso',
+                  is_correct: false
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        name: 'Quiz Rápido: Verdadero o Falso',
+        type: 'quiz',
+        fileType: 'quiz',
+        icon: 'test',
+        highlightFlow: true,
+        highlightColor: 'Esmeralda',
+        status: 'hidden',
+        description: 'Quiz rápido de 3 preguntas sobre conceptos básicos',
+        quiz: {
+          id: 'quiz-rapido-vof',
+          title: 'Quiz Rápido: Verdadero o Falso',
+          description: 'Responde verdadero o falso a las siguientes afirmaciones',
+          dateStart: null, // Sin fecha de inicio específica
+          dateFinish: null, // Sin fecha de fin específica
+          totalPoints: 30,
+          show: 'modal',
+          status: 'active',
+          questions: [
+            {
+              code: 'VOF001',
+              title: 'Una base de datos puede ser utilizada por múltiples usuarios simultáneamente',
+              type: 'vof',
+              score: 10,
+              alternatives: [
+                {
+                  code: 6001,
+                  content: 'Verdadero',
+                  is_correct: true
+                },
+                {
+                  code: 6002,
+                  content: 'Falso',
+                  is_correct: false
+                }
+              ]
+            },
+            {
+              code: 'VOF002',
+              title: 'SQLite es una base de datos que requiere un servidor dedicado',
+              type: 'vof',
+              score: 10,
+              alternatives: [
+                {
+                  code: 7001,
+                  content: 'Verdadero',
+                  is_correct: false
+                },
+                {
+                  code: 7002,
+                  content: 'Falso',
+                  is_correct: true
+                }
+              ]
+            },
+            {
+              code: 'VOF003',
+              title: 'La normalización es un proceso para mejorar el diseño de bases de datos',
+              type: 'vof',
+              score: 10,
+              alternatives: [
+                {
+                  code: 8001,
+                  content: 'Verdadero',
+                  is_correct: true
+                },
+                {
+                  code: 8002,
+                  content: 'Falso',
+                  is_correct: false
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        name: 'Semana 4 - 13 Agosto 2025',
+        type: 'subtitle',
+        description: 'Clase práctica.'
+      },
+      // {
+      //   name: 'Presentación 4 - Conceptos Básicos',
+      //   type: 'content',
+      //   fileType: 'pdf',
+      //   icon: 'pdf',
+      //   url: 'https://drive.google.com/file/d/1ErubzIywGG8lhpixIXPi8wGKwwH-9STj/view?usp=sharing'
+      // },
+      {
+        name: 'hr',
+        type: 'hr'
+      },
+      {
+        name: 'Semana 5 - 20 Agosto 2025',
+        type: 'subtitle',
+        // description: 'Click on any file to download it. All materials are organized to facilitate your study.'
+      },
+        {
+        name: '📚 Documentación de la Clase - Conceptos Básicos',
+        type: 'document',
+        fileType: 'document',
+        icon: 'document',
+        format: 'markdown',
+        showContent: 'modal',
+        content: "\n# Fundamentos de Bases de Datos\n\n## ¿Qué es una Base de Datos?\n\nUna **base de datos** es una colección organizada de información estructurada, o datos, típicamente almacenados electrónicamente en un sistema informático.\n\n### Características principales:\n\n- **Persistencia**: Los datos se mantienen incluso cuando el sistema se apaga\n- **Consistencia**: Los datos siguen reglas y restricciones definidas\n- **Seguridad**: Control de acceso y protección de datos\n- **Integridad**: Precisión y confiabilidad de los datos\n\n## Tipos de Bases de Datos\n\n### 1. Bases de Datos Relacionales\n- **MySQL**: Muy popular para aplicaciones web\n- **PostgreSQL**: Potente y con características avanzadas\n- **SQLite**: Ligera, perfecta para aplicaciones móviles\n- **Oracle**: Empresarial, muy robusta\n\n### 2. Bases de Datos No Relacionales (NoSQL)\n- **MongoDB**: Documentos JSON\n- **Redis**: Almacenamiento en memoria\n- **Cassandra**: Distribuida y escalable\n\n## Ventajas de usar Bases de Datos\n\n1. **Eficiencia**: Acceso rápido a la información\n2. **Escalabilidad**: Puede crecer con las necesidades\n3. **Concurrencia**: Múltiples usuarios pueden acceder simultáneamente\n4. **Backup y Recuperación**: Protección contra pérdida de datos\n\n> **Nota importante**: Una base de datos bien diseñada es fundamental para el éxito de cualquier aplicación.\n\n## Próximos temas\n\nEn las siguientes clases veremos:\n- Arquitectura de DBMS\n- Modelo Entidad-Relación\n- Normalización\n- Consultas SQL básicas\n        "
+      },
+      {
+        name: 'Seleccionar caso de estudio',
+        highlightFlow: true,
+        type: 'content',
+        fileType: 'drive',
+        icon: 'drive',
+        url: 'https://drive.google.com/drive/folders/1vbG3w5ru8-nrAAhHwDzxmtSqfRiNC-kx?usp=sharing'
       },
 
     
